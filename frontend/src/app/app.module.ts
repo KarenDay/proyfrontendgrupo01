@@ -12,6 +12,8 @@ import { PersonaComponent } from './components/persona/persona.component';
 import { PersonaFormUsuarioComponent } from './components/persona/persona-form-usuario/persona-form-usuario.component';
 import { PersonaFormComponent } from './components/persona-form/persona-form.component';
 import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { LoginComponent } from './components/login/login.component';
     PersonaComponent,
     PersonaFormUsuarioComponent,
     PersonaFormComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
