@@ -1,42 +1,176 @@
-<div class="container">
-    <div class="row ">
-        <div class="card col-10 offset-1 tabla mt-5">
+<div class="container" style="background-color: darkblue;">
+   <!-- <div class="row ">
+        <div class="card col-10 offset-1 tabla mt-5">-->
             <div class="row">
-                <div class=" col-12 col-sm-12 col-md-8">
-                    <div class="card m-3 ">
-                            <h5 class="card-header titulo">FILTROS</h5>
-                            <div class="card-body align-content-center">
-                                
-                                <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <div class="accordion-item">
-                                      <h2 class="accordion-header" id="flush-headingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                            Filtrar
-                                        </button>
-                                      </h2>
-                                      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">AQUI IRIA LOS TIPOS DE FILTROS </div>
+                <div class=" col-12 col-sm-12 col-md-12">
+                    <div class="card m-3 text-center">
+                            <h5 class="card-header titulo bg-dark" style="color:lime ;">ROLES</h5>
+                            <div class="card-body align-content-center bg-secondary">
+                                <div class="row">
+                                    <div class=" col-12 col-sm-12 col-md-8">
+                                        <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">El sistema necesita una clasificacion de su personal mediante roles, es por 
+                                            eso que en esta pagina usted podra observar/modificar/agregar, 
+                                            roles en el sistema 
+                                        </h2>
+                                    </div>
+                                    <div class=" col-12 col-sm-12 col-md-4">
+                                        <div class="card m-3 ">
+                                            <h5 class="card-header titulo text-center bg-dark" style="color:lime ;">REGISTRO DE ROLES</h5>
+                                            <div class="card-body align-content-center" style="background-color: skyblue;">
+                                                <button type="button" class="btn btn-outline-success"
+                                                data-bs-toggle="modal" data-bs-target="#ventanaModAgr">
+                                                    <i class="bi bi-plus-circle"></i> AGREGAR
+                                                </button> 
+                                            </div>
                                       </div>
                                     </div>
-                                  </div>
+                                </div>   
                             </div>                    
                       </div>
                 </div>
-                <div class=" col-12 col-sm-12 col-md-4 ">
-                    <div class="card m-3 ">
-                            <h5 class="card-header titulo text-center">REGISTRO DE ROLES</h5>
-                            <div class="card-body vstack gap-2 mx-auto">
-                                <button type="button" class="btn btn-outline-success"
-                                data-bs-toggle="modal" data-bs-target="#ventanaModAgr">
-                                    <i class="bi bi-plus-circle"></i> AGREGAR
-                                </button> 
+            </div>
+
+            <div class="rows-cols-1">
+                <div class="modal fade" id="ventanaModAgr" data-bs-backdrop="static" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" >
+                    <div class="modal-content p-2">
+                    <div class="modal-header titulo">
+                        <h5 class="modal-title" style="color:lime ;">REGISTRO DE ROL</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form #rolForm="ngForm">
+                        
+                            <div class=" mb-3 ">
+                                <label for="nombre" class="form-label" >Nombre Del Rol</label>
+                                <input type="text" class="form-control" id="nombre" 
+                                [(ngModel)]="rol.nombreRol" name="nombre" required #nombre="ngModel" placeholder="Ingrese nombre"> 
+                                <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                                    class="alert alert-danger">        
+                                    <div *ngIf="nombre.errors?.['required']">
+                                    Este dato es requerido.
+                                    </div>
+                                </div>  
                             </div>
-                      </div>
+                    
+                            <div *ngIf="accion=='update'" class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    PERSONAS
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
+                                        <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                                </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button *ngIf="accion=='new'" type="button" class="btn btn-primary botones" 
+                         data-bs-dismiss="modal"  [disabled]="!rolForm.form.valid">GUARDAR</button>
+                        <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" 
+                         data-bs-dismiss="modal" [disabled]="!rolForm.form.valid">ACTUALIZAR </button>
+                    </div>
+                    </div>
+                </div>
                 </div>
             </div>
-            
-        </div>
-        
 
-    </div>
+            <div class="modal " id="ventanaEliminar" tabindex="-1" role="dialog">
+                <div class="modal-dialog" >
+                  <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                      <h5 class="modal-title">Ventana de confirmación</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>{{mensaje}}</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger botones" data-bs-dismiss="modal" (click)="confirmarEliminacion()">Aceptar</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-12 col-sm-12 col-md-12">
+                    <div class="card m-3 text-center">
+                            <h5 class="card-header titulo bg-dark" style="color:lime ;">ROLES CARGADOS</h5>
+                            <div class="card-body align-content-center bg-secondary">
+                                   <div class="row ">
+                                        <div class="col-md-4 col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-success table-striped">
+                                                    <thead class="titulo p-3">
+                                                        <tr class="text-center" >
+                                                            <th scope="col" class="text-center">NOMBRE</th>
+                                                            <th scope="col" class="text-center">ACCIONES</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr *ngFor="let r of roles ">
+                                                        <td>{{r}}</td>
+                                                        <td>
+                                                                    <div class=" col-5 vstack gap-2  mx-auto me-1 ">
+                                                                        <div class="vstack gap-2 mx-auto">
+                                                                            <button type="button" class="btn btn-btn bg-warning"
+                                                                            data-bs-toggle="modal" data-bs-target="#ventanaModAgr">
+                                                                                <i class="bi bi-pencil "></i>
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-btn bg-danger"
+                                                                            data-bs-toggle="modal" data-bs-target="#ventanaEliminar">
+                                                                                <i class="bi bi-trash3"></i>
+                                                                            </button> 
+                                                                        </div>
+                                                                    </div>    
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>  
+                                        </div>
+                                        <div class="col-md-8 col-sm-12">
+                                            <div class="card m-3 ">
+                                                <h5 class="card-header titulo bg-dark" style="color:lime ;">FILTRAR ROLES</h5>
+                                                <div class="card-body align-content-center" style="background-color:darkblue ;">
+                                                    <!--card-body vstack gap-2 mx-auto-->
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-12">
+                                                                <h2 class="form-label" style="color: white;">Seleccione Rol para filtrar:</h2>
+                                                                  <select class="form-control">
+                                                                      <!--<option *ngFor="let per of personas" [ngValue]="per">{{per.apellido}}, {{per.nombre}}</option>-->
+                                                                  </select>
+                                                            <button class="btn-primary">Buscar</button>
+                                                        </div>
+                                                    </div>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-success table-striped">
+                                                                <thead class="titulo p-3">
+                                                                    <tr class="text-center" >
+                                                                        <th scope="col" class="text-center">NOMBRE ROL</th>
+                                                                        <th scope="col" class="text-center">PERSONA</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr *ngFor="let r of roles ">
+                                                                    <td>{{r}}</td>
+                                                                    <td>
+                                                                           
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div> 
+                                                </div>
+                                          </div> 
+                                        </div>
+                                   </div>      
+                            </div>        
+                    </div>
+                </div>
+            </div>                
 </div>

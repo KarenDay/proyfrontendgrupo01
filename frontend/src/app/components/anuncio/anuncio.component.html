@@ -1,1 +1,116 @@
-<p>anuncio works!</p>
+<div class="container bg-secondary">
+    <div class="row">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                 <h1 style="color:blue ;">SISTEMA DE ANUNCIOS</h1>
+            </div>
+          </nav>
+          <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-2">
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Mis anuncios</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Anuncios de mi Area</a>
+                      </li>
+                    </ul>
+                </div>    
+            </div>
+          </div>
+    </div>
+    <div class="row">
+        <div class="card col-12 tabla mt-5 bg-secondary">
+            <div class="row">
+                <div class=" col-12 col-sm-12 col-md-4">
+                    <div class="card m-3">
+                            <h5 class="card-header titulo bg-dark" style="color: blue;">Archivos adjuntos</h5>
+                            <div class="card-body align-content-center" style="background-color: darkblue;">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" style="color: white;">Listado</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let pa of archivos">
+                                        <td>{{pa}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>                    
+                      </div>
+                </div>
+                
+                <div class=" col-12 col-sm-12 col-md-8 ">
+                     
+                        <div class="card m-3 ">
+                            <h5 class="card-header titulo text-center bg-dark" style="color: blue;"> CREAR ANUNCIO</h5>                               
+                            <div class="card-body align-content-center" style="background-color: darkblue;">
+                                <div class="row">    
+                                        <div class="col-12 col-md-6 col-sm-12" style="color: white;">
+                                            <label for="exampleFormControlInput1" class="form-label">Recursos</label>
+                                            <div class="input-group mb-1">
+                                                <input type="file" class="form-control" [(ngModel)]="arch" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                            </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-outline-success" type="button" (click)="guardar()" id="inputGroupFileAddon04">Guardar</button>
+                                                </div>
+                                                
+                                                    <div class="card bg-secondary"  style="height:18rem ;">
+                                                        <div class="card-body">
+                                                            <label for="exampleFormControlInput1" class="form-label">{{texto}}</label>
+                                                        </div>
+                                                    </div>
+                                                 
+                                        </div>
+                                            <div class="col-12 col-md-6 col-sm-12" style="color: white;">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlTextarea1" class="form-label">Texto de Anuncio</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [(ngModel)]="texto"></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Redactor</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Tiempo de Lectura</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                                                </div>
+                                                
+                                                <select class="form-select" aria-label="Disabled select example" >
+                                                    <option selected>Tipo de Contenido</option>
+                                                    <option value="1">Texto plano</option>
+                                                    <option value="2">Imagen</option>
+                                                    <option value="3"></option>
+                                                </select>
+                                                <select class="form-select" aria-label="Disabled select example">
+                                                    <option selected>Estado</option>
+                                                    <option value="1">edicion</option>
+                                                    <option value="2">confeccionado</option>
+                                                    <option value="3">autirizado</option>
+                                                    <option value="3">cancelado</option>
+                                                </select>
+                                                <select class="form-select" aria-label="Disabled select example">
+                                                    <option selected>Destinatarios</option>
+                                                    <option value="1">tipo de roles</option>
+                                                </select>
+                                                <select class="form-select" aria-label="Disabled select example">
+                                                    <option selected>Medios de Publicacion</option>
+                                                    <option value="1">Facebook</option>
+                                                </select>
+                                            </div>
+|                                  
+                                </div>
+                            </div>   
+                         </div>
+              </div>
+            </div>    
+        </div>
+    </div>
+
+</div>

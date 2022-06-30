@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnuncioComponent } from './components/anuncio/anuncio.component';
 import { RolComponent } from './components/rol/rol.component';
+import { AnuncioVistaComponent } from './components/anuncio-vista/anuncio-vista.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AnuncioComponent,
-    RolComponent
+    RolComponent,
+    AnuncioVistaComponent
   ],
   imports: [
     BrowserModule,
