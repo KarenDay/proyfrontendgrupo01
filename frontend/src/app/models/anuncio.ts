@@ -1,4 +1,5 @@
 import { Medio } from "./medio";
+import { Persona } from "./persona";
 import { Rol } from "./rol";
 
 export class Anuncio {
@@ -11,5 +12,5 @@ export class Anuncio {
     destinatarios!:Rol;
     recursos!:string;
     tiempoLectura!:string;
-    //redactor!:Persona;
+    redactor!:Persona;
 }

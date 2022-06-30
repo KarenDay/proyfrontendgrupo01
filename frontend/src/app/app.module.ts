@@ -16,7 +16,6 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +35,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
