@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
 import { RolService } from 'src/app/services/rol.service';
 
@@ -11,24 +12,40 @@ import { RolService } from 'src/app/services/rol.service';
 })
 export class RolComponent implements OnInit {
 
- // dtOptions: DataTables.Settings = {};
-  //dtTrigger:Subject<any> = new Subject<any>();
-
-  //roles!:Array<Rol>;
-  roles!:Array<string>
+  roles!:Array<Rol>;
   rol:Rol = new Rol();
   rolAEliminar!:Rol;
-//  persona:Persona=new Persona();
-  
+  persona:Persona=new Persona();
+  filtro!:string;
   accion:string="new";
   mensaje!:string;
-
+ 
   constructor(private rolService:RolService) { 
-    this.roles=new Array<string>();
-    this.roles=["administrador","encargado","paciente"];
+   this.cargarRoles();
   }
 
   ngOnInit(): void {
+  }
+
+  cargarRoles(){
+    this.roles=new Array<Rol>();
+    this.rolService.getRoles().subscribe(
+      result=>{
+          var unRol=new Rol();
+          result.forEach((element:any) => {
+            Object.assign(unRol,element);
+            this.roles.push(unRol);
+            unRol=new Rol();
+          });
+          console.log(this.roles);
+      },
+      error=>{
+      }
+    );
+  }
+
+  filtrar(){
+
   }
 
   agregarRol(){
@@ -41,7 +58,7 @@ export class RolComponent implements OnInit {
       result=>{
         alert(result.msg);
         rolForm.reset;
-     //   this.cargarRoles();
+        this.cargarRoles();
       },
       error=>{
         console.log(error.msg);
@@ -58,7 +75,7 @@ export class RolComponent implements OnInit {
     this.rolService.updateRol(this.rol).subscribe(
       result=>{
         alert(result.msg);
-      //  this.cargarRoles();
+       this.cargarRoles();
       },
       error=>{
         alert(error.msg);
@@ -77,7 +94,7 @@ export class RolComponent implements OnInit {
         if(result.status="1")
         console.log(result.msg);
         alert(result.msg);
-      //  this.cargarRoles();
+        this.cargarRoles();
       },
       error=>{
         if(error.status="0")

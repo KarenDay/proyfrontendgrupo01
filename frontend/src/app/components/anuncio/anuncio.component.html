@@ -51,11 +51,20 @@
                         <div class="card m-3 ">
                             <h5 class="card-header titulo text-center bg-dark" style="color: blue;"> CREAR ANUNCIO</h5>                               
                             <div class="card-body align-content-center" style="background-color: darkblue;">
-                                <div class="row">    
+                                <div class="row"> 
+                                  <!--<form #anuncioForm="ngForm" name="form">-->
                                         <div class="col-12 col-md-6 col-sm-12" style="color: white;">
                                             <label for="exampleFormControlInput1" class="form-label">Recursos</label>
                                             <div class="input-group mb-1">
-                                                <input type="file" class="form-control" [(ngModel)]="arch" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                                                <input type="file" class="form-control" [(ngModel)]="anuncio.recursos" id="recursos" aria-describedby="inputGroupFileAddon04" aria-label="Upload"
+                                                name="recursos"  placeholder="Ingrese sus recursos" required>
+                                                <!--#recursos="ngModel"-->
+                                                 <!--<div *ngIf="recursos.invalid && (recursos.dirty || recursos.touched)"
+                                                     class="alert alert-danger">        
+                                                    <div *ngIf="recursos.errors?.['required']">
+                                                        Este dato es requerido.
+                                                        </div>
+                                                    </div> -->    
                                             </div>
                                                 <div class="mb-3">
                                                     <button class="btn btn-outline-success" type="button" (click)="guardar()" id="inputGroupFileAddon04">Guardar</button>
@@ -63,7 +72,7 @@
                                                 
                                                     <div class="card bg-secondary"  style="height:18rem ;">
                                                         <div class="card-body">
-                                                            <label for="exampleFormControlInput1" class="form-label">{{texto}}</label>
+                                                            <label for="exampleFormControlInput1" class="form-label">{{anuncio.textoAnuncio}}</label>
                                                         </div>
                                                     </div>
                                                  
@@ -71,40 +80,98 @@
                                             <div class="col-12 col-md-6 col-sm-12" style="color: white;">
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlTextarea1" class="form-label">Texto de Anuncio</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [(ngModel)]="texto"></textarea>
+                                                    <textarea class="form-control" id="texto" rows="2" [(ngModel)]="anuncio.textoAnuncio" name="texto"  placeholder="Ingrese texto del anuncio" required></textarea>
+                                                    <!--#texto="ngModel"
+                                                           <div *ngIf="texto.invalid && (texto.dirty || texto.touched)"
+                                                    class="alert alert-danger">        
+                                                    <div *ngIf="texto.errors?.['required']">
+                                                    Este dato es requerido.
+                                                    </div>
+                                                </div>  -->
+                                                   
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Redactor</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1">
-                                                </div>
+                                                    <input type="text" class="form-control" id="redactor" [(ngModel)]="anuncio.redactor.nombre" name="redactor"  placeholder="Ingrese redactor" required>
+                                                    <!--#redactor="ngModel"
+                                                        <div *ngIf="redactor.invalid && (redactor.dirty || redactor.touched)"
+                                                    class="alert alert-danger">        
+                                                    <div *ngIf="redactor.errors?.['required']">
+                                                    Este dato es requerido.
+                                                    </div>
+                                                </div> -->
+                                                    
+                                                  </div>
                                                 <div class="mb-3">
                                                     <label for="exampleFormControlInput1" class="form-label">Tiempo de Lectura</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1">
+                                                    <input type="text" class="form-control" id="tiempo" [(ngModel)]="anuncio.tiempoLectura" name="tiempo"  placeholder="Ingrese tiempo de duracion" required>
+                                                    <!--#tiempo="ngModel"
+                                                       <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
+                                                    class="alert alert-danger">        
+                                                    <div *ngIf="tiempo.errors?.['required']">
+                                                    Este dato es requerido.
+                                                    </div>
+                                                </div> -->
+                                                   
                                                 </div>
                                                 
-                                                <select class="form-select" aria-label="Disabled select example" >
+                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.tipoContenido" id="contenido" name="contenido" placeholder="Ingrese contenido" required>
                                                     <option selected>Tipo de Contenido</option>
                                                     <option value="1">Texto plano</option>
                                                     <option value="2">Imagen</option>
                                                     <option value="3"></option>
                                                 </select>
-                                                <select class="form-select" aria-label="Disabled select example">
+                                                
+                                                <!--<div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)"
+                                                class="alert alert-danger">        
+                                                <div *ngIf="contenido.errors?.['required']">
+                                                Este dato es requerido.
+                                                </div>
+                                                </div> -->
+                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.estado" id="estado" name="estado" placeholder="Ingrese estado" required>
                                                     <option selected>Estado</option>
                                                     <option value="1">edicion</option>
                                                     <option value="2">confeccionado</option>
                                                     <option value="3">autirizado</option>
                                                     <option value="3">cancelado</option>
                                                 </select>
-                                                <select class="form-select" aria-label="Disabled select example">
+                                               
+                                              <!-- <div *ngIf="estado.invalid && (estado.dirty || estado.touched)"
+                                                class="alert alert-danger">        
+                                                <div *ngIf="estado.errors?.['required']">
+                                                Este dato es requerido.
+                                                </div>
+                                              </div> -->
+                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.destinatarios.nombreRol" id="destinatario" name="destinatario"  placeholder="Ingrese destinatario" required>
                                                     <option selected>Destinatarios</option>
                                                     <option value="1">tipo de roles</option>
                                                 </select>
-                                                <select class="form-select" aria-label="Disabled select example">
+                                                 
+                                              <!--<div *ngIf="destinatario.invalid && (destinatario.dirty || destinatario.touched)"
+                                                class="alert alert-danger">        
+                                                <div *ngIf="texto.errors?.['required']">
+                                                Este dato es requerido.
+                                                </div>
+                                            </div>-->
+                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.mediosDePublicacion" id="medios" name="medios" placeholder="Ingrese medios" required>
                                                     <option selected>Medios de Publicacion</option>
                                                     <option value="1">Facebook</option>
                                                 </select>
+                                               
+                                            <!-- <div *ngIf="medios.invalid && (medios.dirty || medios.touched)"
+                                                class="alert alert-danger">        
+                                                <div *ngIf="medios.errors?.['required']">
+                                                Este dato es requerido.
+                                                </div>
+                                            </div> -->
                                             </div>
-|                                  
+|                                           
+                                            <div >
+                                              <button type="button" class="btn btn-primary botones" 
+                                                (click)="guardarAnuncio()">GUARDAR</button>
+                                            </div>
+                                            <!--[disabled]="!anuncioForm.form.valid"-->
+                                  
                                 </div>
                             </div>   
                          </div>
