@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+      <div class="container-fluid ">
+          <a class="navbar-brand" [routerLink]="['principal']">
+              <img src="../../../../assets/logo.png" style="width: 100px; height:100px" />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul *ngIf="loginService.userLoggedIn()==false" 
+            class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+              <li class="nav-item">
+                <a class="nav-link " [routerLink]="['principal']">Principal</a>
+              </li>
+            </ul>
+            <ul *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()!=='ADMINISTRADOR' && loginService.userRolLoggedIn()!=='ENCARGADO'"
+            class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+              <li class="nav-item">
+                <a class="nav-link " [routerLink]="['principal']">Principal</a>
+              </li>
+            </ul>
+              <ul *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()==='ADMINISTRADOR'"
+                class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+                  <li class="nav-item">
+                    <a class="nav-link " [routerLink]="['principal']">Principal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " [routerLink]="['persona']">Gestion Personas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['rol']">Gestion Rol</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['area']">Gestion Area</a>
+                  </li>
+              </ul>
+              <ul *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()==='ENCARGADO'"
+                class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+                  <li class="nav-item">
+                    <a class="nav-link " [routerLink]="['principal']">Principal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " [routerLink]="['persona']">Gestion Personas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['rol']">Gestion Rol</a>
+                  </li>
+              </ul>
+              <ul class="navbar-nav ms-auto ">
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../../assets/logoUser.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" *ngIf="loginService.userLoggedIn()" [routerLink]="['mis-anuncios']">Mis Anuncios</a></li>
+                          <li><a class="dropdown-item" *ngIf="loginService.userLoggedIn()" [routerLink]="['anuncio-form']">Crear Anuncio</a></li>
+                          <li><a class="dropdown-item" *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">Login</a></li>
+                          <li><a class="dropdown-item text-uppercase" *ngIf="loginService.userLoggedIn()" [routerLink]="['login']" (click)="logout()">
+                            {{loginService.userLogged()}} (salir)
+                          </a></li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </nav>
+  </div>

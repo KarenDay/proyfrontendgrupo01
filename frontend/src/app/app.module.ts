@@ -7,13 +7,30 @@ import { AppComponent } from './app.component';
 import { AnuncioComponent } from './components/anuncio/anuncio.component';
 import { RolComponent } from './components/rol/rol.component';
 import { AnuncioVistaComponent } from './components/anuncio-vista/anuncio-vista.component';
+import { AreaComponent } from './components/area/area/area.component';
+import { AreaEncargadosComponent } from './components/area/area-encargados/area-encargados.component';
+import { PersonaComponent } from './components/persona/persona.component';
+import { PersonaFormUsuarioComponent } from './components/persona/persona-form-usuario/persona-form-usuario.component';
+import { PersonaFormComponent } from './components/persona-form/persona-form.component';
+import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AnuncioComponent,
     RolComponent,
-    AnuncioVistaComponent
+    AnuncioVistaComponent,
+    AreaComponent,
+    AreaEncargadosComponent,
+    PersonaComponent,
+    PersonaFormUsuarioComponent,
+    PersonaFormComponent,
+    LoginComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
