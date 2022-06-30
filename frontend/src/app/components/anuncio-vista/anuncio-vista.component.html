@@ -1,0 +1,58 @@
+<div class="container bg-secondary">
+    <div class="row">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                 <h1 style="color:blue ;">SISTEMA DE ANUNCIOS</h1>
+            </div>
+          </nav>
+          <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-2">
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                      <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['crearAnuncio']">Crear Anuncio</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['anuncios']">Mis anuncios</a>
+                      </li>
+                    </ul>
+                </div>    
+            </div>
+          </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-10 offset-md-1 text-center bg-secondary">
+        <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">!!BIENVENIDOS!!</h1>       
+        
+        <div class="card text-center bg-dark">
+             <h1 class="card-header titulo text-center border-primary" style="color:lime;">ANUNCIOS QUE TE PUEDEN INTERESAR</h1>
+             <img style="width: 30%; margin-left: 35%;padding: 2%;" src="https://sanidad.castillalamancha.es/sites/sescam.castillalamancha.es/files/imagenes_galerias/campana_vacunacion_otros_grupos_clm_2021_chico_0.png">
+             <div class="card-body bg-dark border-primary">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 border-primary">
+                        <h2 style="color:lime; font-family: Arial, Helvetica, sans-serif;">VACUNACION ANTIGRIPAL</h2>
+                        <h3 style="font-family: cursive; color: azure; height: 60%;">Se lanzo la campaña de vacunacion antigripal en este mes de Junio</h3>
+                    </div>
+                    <div class="col-md-4 col-sm-12 border-primary">
+                        <h3 style="font-family: cursive; color: azure;">Mas informacion</h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png">
+                    </div>
+                </div>
+                
+                     <div class="col-md-8 offset-md-2">
+                         <button class="carousel-control-prev" type="button">ANTERIOR 
+                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                         </button>
+                         <button class="carousel-control-next" >SIGUIENTE
+                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                         </button>
+                     </div>
+             </div>    
+        </div>    
+     </div>
+    </div>
+</div>

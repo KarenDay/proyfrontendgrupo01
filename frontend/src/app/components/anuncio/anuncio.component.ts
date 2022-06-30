@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnuncioComponent implements OnInit {
 
-  constructor() { }
+  archivos!:Array<string>;
+  arch!:string;
+  texto!:string;
+
+  constructor() { 
+      this.archivos =new Array<string>();
+  }
 
   ngOnInit(): void {
   }
 
+  guardar(){
+    this.archivos.push(this.arch);
+}
 }

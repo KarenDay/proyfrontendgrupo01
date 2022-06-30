@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnuncioComponent } from './components/anuncio/anuncio.component';
 import { RolComponent } from './components/rol/rol.component';
+import { AnuncioVistaComponent } from './components/anuncio-vista/anuncio-vista.component';
 import { AreaComponent } from './components/area/area/area.component';
 import { AreaEncargadosComponent } from './components/area/area-encargados/area-encargados.component';
 import { PersonaComponent } from './components/persona/persona.component';
@@ -15,11 +16,13 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     AnuncioComponent,
     RolComponent,
+    AnuncioVistaComponent,
     AreaComponent,
     AreaEncargadosComponent,
     PersonaComponent,
