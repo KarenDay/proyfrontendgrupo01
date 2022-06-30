@@ -11,6 +11,7 @@ import { AreaEncargadosComponent } from './components/area/area-encargados/area-
 import { PersonaComponent } from './components/persona/persona.component';
 import { PersonaFormUsuarioComponent } from './components/persona/persona-form-usuario/persona-form-usuario.component';
 import { PersonaFormComponent } from './components/persona-form/persona-form.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PersonaFormComponent } from './components/persona-form/persona-form.com
     AreaEncargadosComponent,
     PersonaComponent,
     PersonaFormUsuarioComponent,
-    PersonaFormComponent
+    PersonaFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
