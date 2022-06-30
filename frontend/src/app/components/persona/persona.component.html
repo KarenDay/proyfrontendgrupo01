@@ -1,0 +1,146 @@
+<div class="container-fluid ">
+    <!--modal para eliminar persona  -->
+    <div class="modal " id="ventanaEliminar" tabindex="-1" role="dialog">
+        <div class="modal-dialog" >
+          <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title">Ventana de confirmación</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+              <p>{{mensaje}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger botones" data-bs-dismiss="modal" (click)="confirmarEliminacion()">Aceptar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="card col-10 offset-1 tabla mt-5">
+            <div class="row">
+                <div class=" col-12 col-sm-12 col-md-8">
+                    <div class="card m-3 ">
+                            <h5 class="card-header titulo">FILTROS</h5>
+                            <div class="card-body align-content-center">
+                                
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                      <h2 class="accordion-header" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Filtrar
+                                        </button>
+                                      </h2>
+                                      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">AQUI IRIA LOS TIPOS DE FILTROS </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>                    
+                      </div>
+                </div>
+                <div class=" col-12 col-sm-12 col-md-4 ">
+                    <div class="card m-3 ">
+                            <h5 class="card-header titulo text-center">REGISTRO DE PERSONAS</h5>
+                            <div class="card-body vstack gap-2 mx-auto">
+                                <button type="button" class="btn btn-outline-success" (click)="agregarPersona()">
+                                    <i class="bi bi-plus-circle"></i> AGREGAR
+                                </button> 
+                            </div>
+                      </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+    <div class="row">
+        <div class="card col-10 offset-1 tabla mt-5">
+            
+                <div class="table-wrapper mt-5 ">
+                    <div class=" table-title ">
+                        <div class=" card p-2 titulo">
+                            <div class="row">
+                                <div class="col-12  text-center text-md-start">
+                                    <h2 class="ps-4 text-center"><b> PERSONAS</b></h2>
+                                </div>
+                               
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="row mt-3 p-5 bg-white">
+                        <div class="table-responsive">
+                            <table 
+                            class=" table table-striped table-bordered row-border hover">
+                                <thead class="titulo p-5">
+                                  <tr class="text-center" >
+                                   
+                                    <th scope="col" class="text-center">APELLIDO</th>
+                                    <th scope="col" class="text-center">NOMBRE</th>
+                                    <th scope="col" class="text-center">LEGAJO</th>
+                                    <th scope="col" class="text-center">DNI</th>
+                                    <th scope="col" class="text-center">EMAIL</th>
+                                    <th scope="col" class="text-center">AREA</th>
+                                    <th scope="col" class="text-center">ROLES</th>
+                                    <th scope="col" class="text-center">ACCIONES</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let p of personas">
+                                    <td>{{p.apellido}}</td>
+                                    <td>{{p.nombre}}</td>
+                                    <td>{{p.legajo}}</td>
+                                    <td>{{p.dni}}</td>
+                                    <td>{{p.email}}</td>
+                                    <td>{{p.area.nombreArea}}</td>
+                                    <td>
+                                        <div class="accordion" >
+                                            
+                                            <div class="accordion-item">
+                                              <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+p._id"
+                                                aria-expanded="false" [attr.aria-controls]="'collapse'+p._id">
+                                                VER ROLES
+                                                </button>
+                                              </h2>
+                                              <div [id]="'collapse'+p._id" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                  <p *ngFor="let rol of p.roles">{{rol.nombreRol}}</p>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                    </td>
+                                    <td>
+                                            <div class="row">
+                                                <div class=" col-5 vstack gap-2  mx-auto me-1 ">
+                                                    <div class="vstack gap-2 mx-auto">
+                                                        <button type="button" class="btn btn-btn bg-warning" (click)="modificarPersona(p)" >
+                                                            <i class="bi bi-pencil "></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-btn bg-danger"
+                                                        data-bs-toggle="modal" data-bs-target="#ventanaEliminar" (click)="eliminarPersona(p)" >
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button>
+                                                        <!-- <button type="button" class="btn btn-btn bg-info"
+                                                        (click)="agregarUsuario(p)" >
+                                                        <i class="bi bi-person-plus-fill"></i>
+                                                        </button>   -->
+                                                    </div>
+                                                </div>
+                                            </div>   
+                                    </td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+        </div>
+    </div>   
+</div>
