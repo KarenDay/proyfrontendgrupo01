@@ -1,0 +1,55 @@
+.cont-form{
+    border-radius: 20px;
+    background-color: rgba(23, 80, 146, 0.532);;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    box-shadow: black 1px 1px 10px;
+}
+.cont-form .card-title{
+    font-size: 20px;
+    border-bottom: 5px solid rgb(0, 0, 0);
+    text-align: center;
+}
+.cont-tabla{
+    background-color: rgba(221, 255, 193, 0.625);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 20px;
+    margin-bottom: 15%;
+    padding: 2%;
+    box-shadow: black 1px 1px 10px;
+}
+.cont-tabla-titulo{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    border-bottom: 5px solid rgb(0, 0, 0);
+}
+.botones{
+    width: 150px;
+    border-radius: 10px;
+    border-color: rgba(7, 52, 104, 0.532);
+    background-color:rgba(23, 80, 146, 0.532);
+    margin: 5px;
+    color: white;    
+}
+.botones:hover{
+    color: white;
+    background-color: rgba(14, 47, 85, 0.532);
+    box-shadow: black 1px 1px 5px;;
+}
+.etiqueta{
+    box-shadow: black 1px 1px 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+}
+
+table a.delete{
+    color:#F44336;
+}
+
+table a.delete .bi.bi-trash-fill{
+    background-size: 2rem 2rem;
+}

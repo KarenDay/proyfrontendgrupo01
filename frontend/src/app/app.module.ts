@@ -6,12 +6,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnuncioComponent } from './components/anuncio/anuncio.component';
 import { RolComponent } from './components/rol/rol.component';
+import { AreaComponent } from './components/area/area/area.component';
+import { AreaEncargadosComponent } from './components/area/area-encargados/area-encargados.component';
+import { PersonaComponent } from './components/persona/persona.component';
+import { PersonaFormUsuarioComponent } from './components/persona/persona-form-usuario/persona-form-usuario.component';
+import { PersonaFormComponent } from './components/persona-form/persona-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AnuncioComponent,
-    RolComponent
+    RolComponent,
+    AreaComponent,
+    AreaEncargadosComponent,
+    PersonaComponent,
+    PersonaFormUsuarioComponent,
+    PersonaFormComponent
   ],
   imports: [
     BrowserModule,

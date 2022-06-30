@@ -1,0 +1,285 @@
+<div class="container-fluid mt-5">
+    <!-- VENTANA PARA ELIMINAR UN ROL DE UNA PERSONA -->
+      <div class="modal" id="ventanaEliminar" tabindex="-1" role="dialog">
+          <div class="modal-dialog" >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Mensaje de Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <p>{{mensaje}}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn-btn botones" data-bs-dismiss="modal" (click)="confirmarEliminacion(rolForm)">Aceptar</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- FIN VENTANA ELIMINAR ROL -->
+      <!-- VENTANA PARA AGREGAR ROL-->
+      <div class="rows-cols-1">
+          <div class="modal" id="ventanaRol" tabindex="-1" role="dialog">
+            <div class="modal-dialog" >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">AGREGAR ROLES</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                  <form #rolForm="ngForm">
+                  
+                      <div class="mb-3">
+                          <label for="nombre">Rol</label>
+                          <select class="form-select" id="nombre" name="nombre" 
+                          [(ngModel)]="rolSeleccionado._id" required #nombre="ngModel">
+                            <option value=""selected disabled>
+                              Seleccionar
+                            </option>
+                            <option *ngFor="let r of roles" [ngValue]="r._id">
+                               {{r.nombreRol}}
+                            </option>
+                          </select>
+                          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="nombre.errors?.['required']">
+                                  Debe seleccionar un rol.
+                                </div>
+                          </div> 
+                      </div> 
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" data-bs-dismiss="modal" 
+                  (click)="guardarRol(rolForm)" [disabled]="!rolForm.form.valid">GUARDAR</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- FIN VENTANA PARA AGREGAR ROL -->
+      <!-- VENTANA CREAR UN USUARIO PARA LA PERSONA  -->
+      <div class="rows-cols-1">
+        <div class="modal" id="ventanaUsuario" tabindex="-1" role="dialog">
+          <div class="modal-dialog" >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">AGREGAR USUARIO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <form #usuarioForm="ngForm">
+                
+                  <div class=" mb-3 ">
+                    <label for="username" class="form-label " >Nomber Usuario</label>
+                    <input type="text" class="form-control" id="username" 
+                    [(ngModel)]="usuario.username" name="username" required #username="ngModel" placeholder="Ingrese nombre de usuario"> 
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                        class="alert alert-danger">
+                        
+                        <div *ngIf="username.errors?.['required']">
+                        Dato requerido.
+                        </div>
+                    </div>  
+                  </div>
+                  <div class=" mb-3 ">
+                    <label for="contrasenia" class="form-label " >Contraseña</label>
+                    <input type="text" class="form-control" id="contrasenia" 
+                    [(ngModel)]="usuario.password" name="contrasenia" required #contrasenia="ngModel" placeholder="Ingrese contraseña"> 
+                    <div *ngIf="contrasenia.invalid && (contrasenia.dirty || contrasenia.touched)"
+                        class="alert alert-danger">
+                        
+                        <div *ngIf="contrasenia.errors?.['required']">
+                        Dato requerido.
+                        </div>
+                    </div>  
+                  </div>
+                  <div class="mb-3">
+                    <label for="nombreRol">Rol</label>
+                    <select class="form-select" id="nombreRol" name="nombreRol" 
+                    [(ngModel)]="rolSeleccionado" required #nombreRol="ngModel">
+                      <option value=""selected disabled>
+                        Seleccionar
+                      </option>
+                      <option *ngFor="let r of persona.roles" [ngValue]="r">
+                         {{r.nombreRol}}
+                      </option>
+                    </select>
+                    <div *ngIf="nombreRol.invalid && (nombreRol.dirty || nombreRol.touched)"
+                          class="alert alert-danger">
+                          <div *ngIf="nombreRol.errors?.['required']">
+                            Debe seleccionar un rol.
+                          </div>
+                    </div> 
+                </div> 
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" data-bs-dismiss="modal" 
+                (click)="guardarUsuario(usuarioForm)" [disabled]="!usuarioForm.form.valid">GUARDAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    <!-- FIN VENTANA CREAR USUARIO -->
+    <!-- FORMULARIO PARA CREAR Y MODIFICAR UNA PERSONA -->
+      <div class="row mb-5 mb-md-3">
+        <div class="col-md-6 offset-md-3 cont-form">
+          <div class="card" >        
+            <div class="card-body">
+              <div class="card-title">
+                {{tituloPrincipal}}
+              </div>
+              <div class="row">
+                <div class="col-md-8 offset-md-2">
+                  <form #personaForm="ngForm">
+                      <div class=" mb-3 ">
+                          <label for="apellido" class="form-label " >Apellido</label>
+                          <input type="text" class="form-control" id="apellido" 
+                          [(ngModel)]="persona.apellido" name="apellido" required #apellido="ngModel" placeholder="Ingrese sus apellidos"> 
+                          <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+                              class="alert alert-danger">
+                              
+                              <div *ngIf="apellido.errors?.['required']">
+                              Dato requerido.
+                              </div>
+                          </div>  
+                      </div>
+                      
+                      <div class=" mb-3 ">
+                          <label for="nombre" class="form-label" >Nombre</label>
+                          <input type="text" class="form-control" id="nombre" 
+                          [(ngModel)]="persona.nombre" name="nombre" required #nombre="ngModel" placeholder="Ingrese nombre/s"> 
+                          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+                              class="alert alert-danger">
+                              
+                              <div *ngIf="nombre.errors?.['required']">
+                              Dato requerido.
+                              </div>
+                          </div>  
+                      </div>
+                  
+                      <div class=" mb-3 ">
+                          <label for="legajo" class="form-label" >Legajo</label>
+                          <input type="text" class="form-control" id="legajo" 
+                          [(ngModel)]="persona.legajo" name="legajo" required #legajo="ngModel" placeholder="Ingrese legajo"> 
+                          <div *ngIf="legajo.invalid && (legajo.dirty || legajo.touched)"
+                              class="alert alert-danger">
+                              
+                              <div *ngIf="legajo.errors?.['required']">
+                              Dato requerido.
+                              </div>
+                          </div>  
+                      </div>
+                      <div class=" mb-3 ">
+                          <label for="dni" class="form-label" >Dni</label>
+                          <input type="number" class="form-control" id="dni" 
+                          [(ngModel)]="persona.dni" name="dni" required #dni="ngModel" placeholder="Ingrese DNI"> 
+                          <div *ngIf="dni.invalid && (dni.dirty || dni.touched)"
+                              class="alert alert-danger">
+                              
+                              <div *ngIf="dni.errors?.['required']">
+                              Dato requerido.
+                              </div>
+                          </div>  
+                      </div>
+                      <div class=" mb-3 ">
+                          <label for="email" class="form-label" >Email</label>
+                          <input type="email" class="form-control" id="email" 
+                          [(ngModel)]="persona.email" name="email" required #email="ngModel" placeholder="Ingrese email"> 
+                          <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                              class="alert alert-danger">
+                              
+                              <div *ngIf="email.errors?.['required']">
+                              Dato requerido.
+                              </div>
+                          </div>  
+                      </div>
+                      <!-- SECCION PARA ROL Y USUARIO -->
+                      <div *ngIf="accion=='update'" class="accordion accordion-flush" id="accordionFlushExample">
+                          <!--ACORDION PARA AGREGAR Y MODIFICAR USUARIO  -->
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="accordionUsuario">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                              data-bs-target="#colapseUsuario" aria-expanded="false" aria-controls="colapseUsuario">
+                                USUARIO
+                              </button>
+                            </h2>
+                            <div id="colapseUsuario" class="accordion-collapse collapse" aria-labelledby="accordionUsuario"
+                            data-bs-parent="#accordionFlushExample">
+                              <div class="accordion-body">
+                                <button  type="button" class="btn-btn botones" data-bs-toggle="modal" data-bs-target="#ventanaUsuario">
+                                  AGREGAR USUARIO</button>
+                                <div class="table-responsive p-4 rounded">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">USUARIO</th>
+                                        <th scope="col">CONTRASEÑA</th>  
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let usuario of usuarios" >
+                                        <th> {{usuario.username}}</th>
+                                        <td>{{usuario.password}}  </td>
+                                      </tr>   
+                                    </tbody>
+                                  </table>
+                                </div>
+                            </div>
+                          </div>
+                          </div>
+                          <!-- ACORDION PARA AGREGAR O ELIMINAR ROL -->
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                ROLES
+                              </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                              <div class="accordion-body">
+                                <button  type="button" class="btn-btn botones" data-bs-toggle="modal" data-bs-target="#ventanaRol"
+                                (click)="cargarRoles()"
+                                >AGREGAR ROLES</button>
+                                <div class="table-responsive p-4 rounded">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">ROL</th>
+                                        <th scope="col " class="text-center">ACCIONES</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let r of persona.roles">
+                                        <th>{{r.nombreRol}}</th>
+                                        <td class="text-center">
+                                         <a href="#" *ngIf="accion=='update'" class="btn btn-btn bg-danger" (click)="eliminarRol(r)" 
+                                         data-bs-toggle="modal" data-bs-target="#ventanaEliminar">
+                                          <i class="bi bi-trash3 " data-bs-toggle="tooltip"></i></a>
+                               
+                                        </td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                                </div>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                      
+                         <button *ngIf="accion=='new'" type="button" class="btn btn-primary botones " (click)="guardarPersona(personaForm)"
+                          [disabled]="!personaForm.form.valid">GUARDAR</button>
+                         <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" (click)="actualizarPersona()" 
+                          [disabled]="!personaForm.form.valid">ACTUALIZAR</button>
+                          <button type="button" class="btn btn-primary botones" (click)="volver()" >VOLVER</button>
+                      </form>
+                </div>
+              </div>       
+            </div>
+          </div>
+        </div>
+      </div>    
+  </div>
+    
