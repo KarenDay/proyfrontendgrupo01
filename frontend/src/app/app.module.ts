@@ -15,6 +15,7 @@ import { PersonaFormComponent } from './components/persona-form/persona-form.com
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { MisAnunciosComponent } from './components/mis-anuncios/mis-anuncios.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     PersonaFormComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    MisAnunciosComponent
   ],
   imports: [
     BrowserModule,

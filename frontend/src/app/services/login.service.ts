@@ -10,6 +10,7 @@ export class LoginService {
 
   hostBase: string= "http://localhost:3000/api/usuario/";
   invitedIn:boolean=false;
+  idPersona!:string;
   constructor(private _http:HttpClient) { }
 
   public createUser(usuario:Usuario):Observable<any>{
@@ -39,6 +40,7 @@ export class LoginService {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("rol");
     sessionStorage.removeItem("userid");
+    sessionStorage.removeItem("idPersona");
   } 
   
   public userLoggedIn(){
@@ -56,6 +58,19 @@ export class LoginService {
     if(rol!="ADMINISTRADOR" && rol!="ENCARGADO")
       rol="BASICO";
     return rol;
+  }
+
+  public personaLoggedIn(){
+    var idPersona = sessionStorage.getItem("idPersona")!;
+    const httpOptions={
+      headers: new HttpHeaders({
+      
+      }),
+      params : new HttpParams()
+      .append("id",idPersona)
+    }
+    console.log(idPersona);
+    return this._http.get("http://localhost:3000/api/persona/getpersona",httpOptions);
   }
 
   public userLogged(){

@@ -7,6 +7,8 @@ import { Usuario } from 'src/app/models/usuario';
 import { LoginService } from 'src/app/services/login.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { RolService } from 'src/app/services/rol.service';
+import { Area } from 'src/app/models/area';
+import { AreaService } from 'src/app/services/area.service';
 
 @Component({
   selector: 'app-persona-form',
@@ -15,23 +17,28 @@ import { RolService } from 'src/app/services/rol.service';
 })
 export class PersonaFormComponent implements OnInit {
 
+  
   tituloPrincipal:string="REGISTRO PERSONA";
   persona:Persona = new Persona();
   personaAEliminar!:Persona;
+
   rol:Rol=new Rol();
   rolSeleccionado:Rol=new Rol();
+  rolAEliminar:Rol= new Rol();
   roles:Array<Rol>=new Array<Rol>();
   accion:string="new";
   mensaje!:string;
-  rolAEliminar:Rol= new Rol();
 
   usuario:Usuario= new Usuario();
   usuarios:Array<Usuario>= new Array<Usuario>();
+
+  areas:Array<Area>= new Array<Area>();
   constructor(private personaService:PersonaService,
               private activatedRoute:ActivatedRoute,
               private rolService:RolService,
               private router:Router,
-              private usuarioService:LoginService) { }
+              private usuarioService:LoginService,
+              private areaService:AreaService) { }
 
   
   inicializar(){
@@ -39,8 +46,8 @@ export class PersonaFormComponent implements OnInit {
   }
 
   async cargarPersona(id:string){
+    await this.cargarAreas();
     this.persona= new Persona();
-    console.log("entro en persona");
     
     this.personaService.getPersona(id).subscribe(
       result=>{
@@ -52,9 +59,9 @@ export class PersonaFormComponent implements OnInit {
           });
           this.persona.roles= roles;
           Object.assign(this.persona,result);
+          this.persona.area= this.areas.find((item)=>(item._id==this.persona.area._id))!;
           this.cargarUsuarios(id);
       }
-      
     )
   }
 
@@ -127,6 +134,19 @@ export class PersonaFormComponent implements OnInit {
     )
   }
 
+  async cargarAreas(){
+    this.areas= new Array<Area>();
+    this.areaService.getAreas().subscribe(
+      result=>{
+        result.forEach((item : any) => {
+          var area = new Area();
+          Object.assign(area,item);
+          this.areas.push(area);
+        });
+      }
+    )
+  }
+
   guardarRol(rolForm:NgForm){
     console.log("ID PErsona:"+this.persona._id);
     this.personaService.addRol(this.rolSeleccionado,this.persona._id).subscribe(
@@ -154,7 +174,7 @@ export class PersonaFormComponent implements OnInit {
   }
 
   eliminarRol(rol:Rol){
-    console.log("Ro l"+rol);
+    console.log("Rol"+rol);
     this.mensaje="Seguro que desea eliminar el rol?";
     this.rolAEliminar=rol;
     
@@ -178,22 +198,19 @@ export class PersonaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      if (params['id']!=null){
         if (params['id'] == "0"){
           this.accion = "new";  
           this.inicializar();
+          this.cargarAreas();
         }else{
           this.accion = "update";
           this.inicializar();
           this.cargarPersona(params['id']);
+          
           //this.cargarUsuarios(params['id']);
         }
-      }else{
-        console.log("entro en primer else");
-        this.inicializar();
-       
-      }
     });
   }
+
 
 }
