@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem("user", user.username);
               sessionStorage.setItem("userid", user.userid);
               sessionStorage.setItem("rol", user.rol);
+              sessionStorage.setItem("idPersona",user.persona);
               console.log("Rol obtenido:"+ user.rol);
               //redirigimos a home o a pagina que llamo
               this.router.navigateByUrl(this.returnUrl);

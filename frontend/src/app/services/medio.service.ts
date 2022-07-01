@@ -1,39 +1,43 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Rol } from '../models/rol';
+import { Medio } from '../models/medio';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RolService {
+export class MedioService {
 
   urlBase:string="http://localhost:3000/api/";
   constructor(private _http:HttpClient) { }
 
-  public getRoles():Observable<any>{
+  public getMedios():Observable<any>{
+
     const httpOptions={
       headers: new HttpHeaders({
+        
       }),
       params : new HttpParams()
+     
     }
-    return this._http.get(this.urlBase+"rol",httpOptions);
+    return this._http.get(this.urlBase+"medio",httpOptions);
   }
 
-  public createRol(rol:Rol):Observable<any>{
+  public createMedio(medio:Medio):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({
         "Content-Type" : "application/json"
       }),
       params : new HttpParams({
+
       })     
     }
-    let body = JSON.stringify(rol);
-    console.log(rol);
-    return this._http.post(this.urlBase+"rol",body,httpOptions);
+    let body = JSON.stringify(medio);
+    console.log(medio);
+    return this._http.post(this.urlBase+"medio",body,httpOptions);
   }
   
-  public updateRol(rol:Rol):Observable<any>{
+  public updateMedio(medio:Medio):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({
         "Content-Type" : "application/json"
@@ -42,28 +46,29 @@ export class RolService {
 
       })
     }
-    let body = JSON.stringify(rol);
-    return this._http.put(this.urlBase+"rol/"+rol._id,body,httpOptions);
+    let body = JSON.stringify(medio);
+    return this._http.put(this.urlBase+"medio/"+medio._id,body,httpOptions);
   }
 
-  public getRol(id:string):Observable<any>{
+  public getMedio(id:string):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      // .append("id",id)
+    }
+    return this._http.get(this.urlBase+"medio/"+id,httpOptions);
+  }
+
+  public deleteMedio(id:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
       }),
       params : new HttpParams()
       //.append("id",id)
     }
-    return this._http.get(this.urlBase+"rol/"+id,httpOptions);
+    return this._http.delete(this.urlBase+"medio/eliminar/"+id,httpOptions);
   }
-
-  public deleteRol(id:string):Observable<any>{
-    const httpOptions={
-      headers: new HttpHeaders({
-      }),
-      params : new HttpParams()
-      //.append("id",id)
-    }
-    return this._http.delete(this.urlBase+"rol/eliminar/"+id,httpOptions);
-  }
-
 }

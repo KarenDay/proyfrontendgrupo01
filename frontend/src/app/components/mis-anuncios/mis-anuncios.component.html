@@ -1,0 +1,50 @@
+<div class="container-fluid ">
+    <div class="row">
+        <div class="card col-10 offset-1 tabla mt-5 mb-5">   
+                <div class="table-wrapper mt-5 ">
+                    <div class=" table-title ">
+                        <div class=" card p-2 titulo">
+                            <div class="row">
+                                <div class="col-12  text-center text-md-start">
+                                    <h2 class="ps-4 text-center"><b> MIS ANUNCIOS</b></h2>
+                                </div>
+ 
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="row mt-3 p-5 bg-white">
+                        <div class="table-responsive">
+                            <table 
+                            class=" table table-striped table-bordered row-border hover">
+                                <thead class="titulo p-5">
+                                  <tr class="text-center" >
+                                   
+                                    <th scope="col" class="text-center">ANUNCIO</th>
+                                    <th scope="col" class="text-center">ESTADO</th>
+                                    <th scope="col" class="text-center">TEXTO</th>
+                                    <th scope="col" class="text-center">MEDIO DONDE SE PUBLICA</th>
+                                    <th scope="col" class="text-center">DESTINADO A</th>
+                                    <th scope="col" class="text-center">REDACTOR</th>
+                     
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let a of anuncios">
+                                    <td><img [src]="a.tipoContenido" style="height: 200px;" class="img-fluid" alt="Responsive image"></td>
+                                    <td>{{a.estado}}</td>
+                                    <td>{{a.textoAnuncio}}</td>
+                                    <td >
+                                        <label *ngFor="let m of a.mediosDePublicacion">{{m.nombreMedio}}</label>
+                                    </td>
+                                    <td>{{a.destinatario.nombreRol}}</td>
+                                    <td>{{a.redactor.nombre}},{{a.redactor.apellido}}</td>
+                                    
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+                </div>
+        </div>
+    </div>   
+</div>

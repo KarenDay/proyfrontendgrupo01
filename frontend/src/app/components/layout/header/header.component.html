@@ -12,19 +12,19 @@
             <ul *ngIf="loginService.userLoggedIn()==false" 
             class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
               <li class="nav-item">
-                <a class="nav-link " [routerLink]="['principal']">Principal</a>
+                <a class="nav-link " [routerLink]="['index']">Principal</a>
               </li>
             </ul>
             <ul *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()!=='ADMINISTRADOR' && loginService.userRolLoggedIn()!=='ENCARGADO'"
             class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
               <li class="nav-item">
-                <a class="nav-link " [routerLink]="['principal']">Principal</a>
+                <a class="nav-link " [routerLink]="['index']">Principal</a>
               </li>
             </ul>
               <ul *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()==='ADMINISTRADOR'"
                 class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
                   <li class="nav-item">
-                    <a class="nav-link " [routerLink]="['principal']">Principal</a>
+                    <a class="nav-link " [routerLink]="['index']">Principal</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link " [routerLink]="['persona']">Gestion Personas</a>
@@ -44,9 +44,9 @@
                   <li class="nav-item">
                     <a class="nav-link " [routerLink]="['persona']">Gestion Personas</a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" [routerLink]="['rol']">Gestion Rol</a>
-                  </li>
+                  </li> -->
               </ul>
               <ul class="navbar-nav ms-auto ">
                   <li class="nav-item dropdown">
@@ -55,7 +55,7 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                           <li><a class="dropdown-item" *ngIf="loginService.userLoggedIn()" [routerLink]="['mis-anuncios']">Mis Anuncios</a></li>
-                          <li><a class="dropdown-item" *ngIf="loginService.userLoggedIn()" [routerLink]="['anuncio-form']">Crear Anuncio</a></li>
+                          <li><a class="dropdown-item" *ngIf="loginService.userLoggedIn()" [routerLink]="['anuncio']">Crear Anuncio</a></li>
                           <li><a class="dropdown-item" *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">Login</a></li>
                           <li><a class="dropdown-item text-uppercase" *ngIf="loginService.userLoggedIn()" [routerLink]="['login']" (click)="logout()">
                             {{loginService.userLogged()}} (salir)

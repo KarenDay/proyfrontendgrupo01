@@ -1,183 +1,181 @@
-<div class="container bg-secondary">
-    <div class="row">
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-                 <h1 style="color:blue ;">SISTEMA DE ANUNCIOS</h1>
-            </div>
-          </nav>
-          <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-dark p-2">
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Mis anuncios</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Anuncios de mi Area</a>
-                      </li>
-                    </ul>
-                </div>    
-            </div>
-          </div>
-    </div>
-    <div class="row">
-        <div class="card col-12 tabla mt-5 bg-secondary">
-            <div class="row">
-                <div class=" col-12 col-sm-12 col-md-4">
-                    <div class="card m-3">
-                            <h5 class="card-header titulo bg-dark" style="color: blue;">Archivos adjuntos</h5>
-                            <div class="card-body align-content-center" style="background-color: darkblue;">
-                                  <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col" style="color: white;">Listado</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr *ngFor="let pa of archivos">
-                                        <td>{{pa}}</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                            </div>                    
-                      </div>
-                </div>
-                
-                <div class=" col-12 col-sm-12 col-md-8 ">
-                     
-                        <div class="card m-3 ">
-                            <h5 class="card-header titulo text-center bg-dark" style="color: blue;"> CREAR ANUNCIO</h5>                               
-                            <div class="card-body align-content-center" style="background-color: darkblue;">
-                                <div class="row"> 
-                                  <!--<form #anuncioForm="ngForm" name="form">-->
-                                        <div class="col-12 col-md-6 col-sm-12" style="color: white;">
-                                            <label for="exampleFormControlInput1" class="form-label">Recursos</label>
-                                            <div class="input-group mb-1">
-                                                <input type="file" class="form-control" [(ngModel)]="anuncio.recursos" id="recursos" aria-describedby="inputGroupFileAddon04" aria-label="Upload"
-                                                name="recursos"  placeholder="Ingrese sus recursos" required>
-                                                <!--#recursos="ngModel"-->
-                                                 <!--<div *ngIf="recursos.invalid && (recursos.dirty || recursos.touched)"
-                                                     class="alert alert-danger">        
-                                                    <div *ngIf="recursos.errors?.['required']">
-                                                        Este dato es requerido.
-                                                        </div>
-                                                    </div> -->    
-                                            </div>
-                                                <div class="mb-3">
-                                                    <button class="btn btn-outline-success" type="button" (click)="guardar()" id="inputGroupFileAddon04">Guardar</button>
-                                                </div>
-                                                
-                                                    <div class="card bg-secondary"  style="height:18rem ;">
-                                                        <div class="card-body">
-                                                            <label for="exampleFormControlInput1" class="form-label">{{anuncio.textoAnuncio}}</label>
-                                                        </div>
-                                                    </div>
-                                                 
-                                        </div>
-                                            <div class="col-12 col-md-6 col-sm-12" style="color: white;">
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlTextarea1" class="form-label">Texto de Anuncio</label>
-                                                    <textarea class="form-control" id="texto" rows="2" [(ngModel)]="anuncio.textoAnuncio" name="texto"  placeholder="Ingrese texto del anuncio" required></textarea>
-                                                    <!--#texto="ngModel"
-                                                           <div *ngIf="texto.invalid && (texto.dirty || texto.touched)"
-                                                    class="alert alert-danger">        
-                                                    <div *ngIf="texto.errors?.['required']">
-                                                    Este dato es requerido.
-                                                    </div>
-                                                </div>  -->
-                                                   
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlInput1" class="form-label">Redactor</label>
-                                                    <input type="text" class="form-control" id="redactor" [(ngModel)]="anuncio.redactor.nombre" name="redactor"  placeholder="Ingrese redactor" required>
-                                                    <!--#redactor="ngModel"
-                                                        <div *ngIf="redactor.invalid && (redactor.dirty || redactor.touched)"
-                                                    class="alert alert-danger">        
-                                                    <div *ngIf="redactor.errors?.['required']">
-                                                    Este dato es requerido.
-                                                    </div>
-                                                </div> -->
-                                                    
-                                                  </div>
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlInput1" class="form-label">Tiempo de Lectura</label>
-                                                    <input type="text" class="form-control" id="tiempo" [(ngModel)]="anuncio.tiempoLectura" name="tiempo"  placeholder="Ingrese tiempo de duracion" required>
-                                                    <!--#tiempo="ngModel"
-                                                       <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
-                                                    class="alert alert-danger">        
-                                                    <div *ngIf="tiempo.errors?.['required']">
-                                                    Este dato es requerido.
-                                                    </div>
-                                                </div> -->
-                                                   
-                                                </div>
-                                                
-                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.tipoContenido" id="contenido" name="contenido" placeholder="Ingrese contenido" required>
-                                                    <option selected>Tipo de Contenido</option>
-                                                    <option value="1">Texto plano</option>
-                                                    <option value="2">Imagen</option>
-                                                    <option value="3"></option>
-                                                </select>
-                                                
-                                                <!--<div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)"
-                                                class="alert alert-danger">        
-                                                <div *ngIf="contenido.errors?.['required']">
-                                                Este dato es requerido.
-                                                </div>
-                                                </div> -->
-                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.estado" id="estado" name="estado" placeholder="Ingrese estado" required>
-                                                    <option selected>Estado</option>
-                                                    <option value="1">edicion</option>
-                                                    <option value="2">confeccionado</option>
-                                                    <option value="3">autirizado</option>
-                                                    <option value="3">cancelado</option>
-                                                </select>
-                                               
-                                              <!-- <div *ngIf="estado.invalid && (estado.dirty || estado.touched)"
-                                                class="alert alert-danger">        
-                                                <div *ngIf="estado.errors?.['required']">
-                                                Este dato es requerido.
-                                                </div>
-                                              </div> -->
-                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.destinatarios.nombreRol" id="destinatario" name="destinatario"  placeholder="Ingrese destinatario" required>
-                                                    <option selected>Destinatarios</option>
-                                                    <option value="1">tipo de roles</option>
-                                                </select>
-                                                 
-                                              <!--<div *ngIf="destinatario.invalid && (destinatario.dirty || destinatario.touched)"
-                                                class="alert alert-danger">        
-                                                <div *ngIf="texto.errors?.['required']">
-                                                Este dato es requerido.
-                                                </div>
-                                            </div>-->
-                                                <select class="form-select" aria-label="Disabled select example" [(ngModel)]="anuncio.mediosDePublicacion" id="medios" name="medios" placeholder="Ingrese medios" required>
-                                                    <option selected>Medios de Publicacion</option>
-                                                    <option value="1">Facebook</option>
-                                                </select>
-                                               
-                                            <!-- <div *ngIf="medios.invalid && (medios.dirty || medios.touched)"
-                                                class="alert alert-danger">        
-                                                <div *ngIf="medios.errors?.['required']">
-                                                Este dato es requerido.
-                                                </div>
-                                            </div> -->
-                                            </div>
-|                                           
-                                            <div >
-                                              <button type="button" class="btn btn-primary botones" 
-                                                (click)="guardarAnuncio()">GUARDAR</button>
-                                            </div>
-                                            <!--[disabled]="!anuncioForm.form.valid"-->
-                                  
-                                </div>
-                            </div>   
-                         </div>
-              </div>
-            </div>    
+<div class="container-fluid">
+  <div class="modal " id="ventanaConfirmacion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" >
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Ventana de confirmación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
+        <div class="modal-body">
+          <p>{{mensaje}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success botones" data-bs-dismiss="modal" (click)="guardarAnuncio(anuncioForm)" >Aceptar</button>
+        </div>
+      </div>
     </div>
+</div>
+  <div class="row">
+      <div class="col-12 mt-5 ">
+          <div class="row">              
+              <div class=" col-12 col-sm-12 col-md-8 offset-md-2 mb-5 ">
+                      <div class="card m-3 tabla ">
+                          <h5 class="card-header titulo text-center"> CREAR ANUNCIO</h5>                               
+                          <div class="card-body align-content-center fondo letra " >
+                              <div class="row">    
+                                      <div class="col-12 col-md-6 col-sm-12" >
+                                           <label for="recursos" class="form-label">Recursos Extra</label>
+                                          <div class="mb-3">
+                                            <!-- <input type="file" class="form-control" [(ngModel)]="archivo" id="recursos" 
+                                            aria-describedby="agregar" aria-label="Upload"
+                                            > -->
+                                            <input type="text" class="form-control" id="recursos" name="recursos" [(ngModel)]="archivo"> 
+                                          </div>
+                                          <!-- <div class="mb-3">
+                                            <button class="btn btn-outline-success" id="agregar" type="button" (click)="agregarRecursos()" 
+                                            >Agregar Archivo</button>
+                                          </div>  -->
+                                          <!-- vista previa -->
+                                           <div class="card" *ngIf="archivo!=''">
+                                            <div class="card-body">
+                                              <img style="height:90% ;width: 95%; padding: auto;" alt="" src="{{archivo}}"/>
+                                            </div>
+                                          </div>   
+                                            
+                                      </div>
+                                      <!-- FORMULARIO -->
+                                      <div class="col-12 col-md-6 col-sm-12" >
+                                        <form #anuncioForm="ngForm">
+                                          <!-- datos del redactor no se puede cambiar  -->
+                                          <div class=" mb-3 ">
+                                            <label for="redactor" class="form-label ">Redactor</label>
+                                            <input type="text" class="form-control" id="redactor" name="redactor" [(ngModel)]="redactor.nombre" disabled> 
+                                          </div>
+                                          <div class=" mb-3 ">
+                                            <label for="area" class="form-label ">Area a publicar</label>
+                                            <input type="text" class="form-control" id="area" name="area" [(ngModel)]="area.nombreArea" disabled> 
+                                          </div>
+                                          <!-- texto para el anuncio -->
+                                          <div class=" mb-3 ">
+                                              <label for="texto" class="form-label">Texto de Anuncio</label>
+                                              <textarea class="form-control" id="texto" rows="2" name="texto" [(ngModel)]="anuncio.textoAnuncio"
+                                              required #texto="ngModel"></textarea> 
+                                              <div *ngIf="texto.invalid && (texto.dirty || texto.touched)"
+                                                  class="alert alert-danger">
+                                                  <div *ngIf="texto.errors?.['required']">
+                                                  Dato requerido.
+                                                  </div>
+                                              </div> 
+                                          </div>
+                                          <!-- Fecha de entrega -->
+                                          <div class=" mb-3 ">
+                                            <label for="fecha" class="form-label">Fecha de Vigencia </label>
+                                            <input type="date" class="form-control" id="fecha" name="fecha" [(ngModel)]="anuncio.fechaEntrega"
+                                            required #fecha="ngModel">
+                                            <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="fecha.errors?.['required']">
+                                                  Fecha requerida.
+                                                </div>
+                                            </div> 
+                                          </div>
+                                          <!-- Estado  -->
+                                          <div class=" mb-3 "> 
+                                            <label for="estado">Estado</label>
+                                            <select class="form-select" id="estado" name="estado" 
+                                              [(ngModel)]="anuncio.estado" required #estado="ngModel">
+                                              <option value=""selected disabled>Seleccionar</option>
+                                              <option value="EDICION">EDICION</option>
+                                              <option value="CONFECCIONADO">CONFECCIONADO</option>
+                                            </select>
+                                            <div *ngIf="estado.invalid && (estado.dirty || estado.touched)"
+                                                  class="alert alert-danger">
+                                                  <div *ngIf="estado.errors?.['required']">
+                                                    Debe seleccionar un Estado.
+                                                  </div>
+                                            </div> 
+                                          </div>
+                                          <!-- DESTINATARIOS  -->
+                                          <div class="mb-3">
+                                            <label for="rol">Rol Destinado</label>
+                                            <select class="form-select" id="rol" name="rol" 
+                                            [(ngModel)]="anuncio.destinatario" required #rol="ngModel">
+                                              <option selected disabled>Seleccionar</option>
+                                              <option [ngValue]="r"  *ngFor="let r of roles">
+                                                {{r.nombreRol}}
+                                              </option>
+                                            </select>
+                                            <div *ngIf="rol.invalid && (rol.dirty || rol.touched)"
+                                                  class="alert alert-danger">
+                                                  <div *ngIf="rol.errors?.['required']">
+                                                    Debe seleccionar un Rol.
+                                                  </div>
+                                            </div> 
+                                          </div>
+                                          <!-- tiempo de lectura -->
+                                          <div class=" mb-3 ">
+                                            <label for="tiempo" class="form-label">Tiempo de Lectura</label>
+                                            <input type="number" class="form-control" id="tiempo" name="tiempo" [(ngModel)]="anuncio.tiempoLectura"
+                                            required #tiempo="ngModel" placeholder="Ingrese la cantidad de segundos que será el tiempo de lectura">
+                                            <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
+                                                  class="alert alert-danger">
+                                                  <div *ngIf="tiempo.errors?.['required']">
+                                                  Dato requerido.
+                                                  </div>
+                                            </div>
+                                                
+                                          </div>
+                                          <!--destino   -->
+                                          <div class="mb-3">
+                                            <label for="medio">Destino</label>
+                                            <select class="form-select" id="medio" name="medio" 
+                                            [(ngModel)]="anuncio.mediosDePublicacion" required #medio="ngModel">
+                                              <option selected disabled>Seleccionar</option>
+                                              <option [ngValue]="m"  *ngFor="let m of medios">
+                                                {{m.nombreMedio}}
+                                              </option>
+                                            </select>
+                      
+                                            <div *ngIf="medio.invalid && (medio.dirty || medio.touched)"
+                                                  class="alert alert-danger">
+                                                  <div *ngIf="medio.errors?.['required']">
+                                                    Debe seleccionar un Medio.
+                                                  </div>
+                                            </div> 
+                                          </div>
+                                          <!-- Tipo de Imagen -->
+                                          <div class=" mb-3 ">
+                                            <label for="contenido" class="form-label">Tipo Contenido (URL)</label>
+                                            <input type="text" class="form-control" id="contenido" name="contenido"
+                                             [(ngModel)]="anuncio.tipoContenido" required #contenido="ngModel"> 
+                                            <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)"
+                                                  class="alert alert-danger">
+                                                  <div *ngIf="contenido.errors?.['required']">
+                                                    Debe ingresar URL de su anuncio.
+                                                  </div>
+                                            </div> 
+                                          </div>
+                                          <!--  -->
+                                          <!-- <div class="mb-3">
+                                            <qrcode (qrCodeURL)="onChangeURL($event)" [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                                            <a [href]="qrCodeDownloadLink" download="qrcode">Download</a>
+                                          </div> -->
+                                          <button  type="button" class="btn btn-primary botones " (click)="confirmarRegistro()"
+                                          data-bs-toggle="modal" data-bs-target="#ventanaConfirmacion"
+                                              [disabled]="!anuncioForm.form.valid">GUARDAR ANUNCIO</button>
+                                          <!-- <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" (click)="actualizarPersona()" 
+                                              [disabled]="!personaForm.form.valid">ACTUALIZAR</button>                                                      -->
+                                          </form>
+                                    </div>
+
+                              </div>
+                          </div>   
+                       </div>
+            </div>
+          </div>    
+      </div>
+  </div>
 
 </div>
+
+

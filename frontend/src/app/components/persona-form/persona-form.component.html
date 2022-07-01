@@ -196,6 +196,24 @@
                               </div>
                           </div>  
                       </div>
+                      <div class="mb-3">
+                        <label for="area">Area</label>
+                        <select class="form-select" id="area" name="area" 
+                        [(ngModel)]="persona.area" required #area="ngModel">
+                          <option value=""selected disabled>
+                            Seleccionar
+                          </option>
+                          <option *ngFor="let a of areas" [ngValue]="a">
+                             {{a.nombreArea}}
+                          </option>
+                        </select>
+                        <div *ngIf="area.invalid && (area.dirty || area.touched)"
+                              class="alert alert-danger">
+                              <div *ngIf="area.errors?.['required']">
+                                Debe seleccionar una Area.
+                              </div>
+                        </div> 
+                    </div> 
                       <!-- SECCION PARA ROL Y USUARIO -->
                       <div *ngIf="accion=='update'" class="accordion accordion-flush" id="accordionFlushExample">
                           <!--ACORDION PARA AGREGAR Y MODIFICAR USUARIO  -->
