@@ -1,37 +1,23 @@
 <div class="container-fluid">
-   <!-- <div class="row ">
-        <div class="card col-10 offset-1 tabla mt-5">-->
-            <div class="row">
-                <div class=" col-12 col-sm-12 col-md-12">
-                    <div class="card m-3 text-center">
-                            <h5 class="card-header titulo">ROLES</h5>
-                            <div class="card-body align-content-center bg-secondary">
-                                <div class="row">
-                                    <div class=" col-12 col-sm-12 col-md-8">
-                                        <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">El sistema necesita una clasificacion de su personal mediante roles, es por 
-                                            eso que en esta pagina usted podra observar/modificar/agregar, 
-                                            roles en el sistema 
-                                        </h2>
-                                    </div>
-                                    <div class=" col-12 col-sm-12 col-md-4">
-                                        <div class="card m-3 ">
-                                            <h5 class="card-header titulo text-center">REGISTRO DE ROLES</h5>
-                                            <div class="card-body align-content-center">
-                                                <button type="button" class="btn btn-outline-success"
-                                                data-bs-toggle="modal" data-bs-target="#ventanaModAgr">
-                                                    <i class="bi bi-plus-circle"></i> AGREGAR
-                                                </button> 
-                                            </div>
-                                      </div>
-                                    </div>
-                                </div>   
-                            </div>                    
-                      </div>
+    <!-- VENTANA ELIMINAR -->
+            <div class="modal " id="ventanaEliminar" tabindex="-1" role="dialog">
+                <div class="modal-dialog" >
+                  <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                      <h5 class="modal-title">Ventana de confirmación</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>{{mensaje}}</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger botones" data-bs-dismiss="modal" (click)="confirmarEliminacion()">Aceptar</button>
+                    </div>
+                  </div>
                 </div>
             </div>
-
-            <div class="rows-cols-1">
-                <div class="modal fade" id="ventanaModAgr" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <!-- VENTANA AGREGAR Y MODIFICAR -->
+            <div class="modal fade" id="ventanaModAgr" data-bs-backdrop="static" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" >
                     <div class="modal-content p-2">
                     <div class="modal-header titulo">
@@ -44,7 +30,8 @@
                             <div class=" mb-3 ">
                                 <label for="nombre" class="form-label" >Nombre Del Rol</label>
                                 <input type="text" class="form-control" id="nombre" 
-                                [(ngModel)]="rol.nombreRol" name="nombre" required #nombre="ngModel" placeholder="Ingrese nombre"> 
+                                [(ngModel)]="rol.nombreRol" name="nombre" required #nombre="ngModel" style="text-transform:uppercase"
+                                placeholder="Ingrese nombre"> 
                                 <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
                                     class="alert alert-danger">        
                                     <div *ngIf="nombre.errors?.['required']">
@@ -64,99 +51,104 @@
                     </div>
                 </div>
                 </div>
-            </div>
-
-            <div class="modal " id="ventanaEliminar" tabindex="-1" role="dialog">
-                <div class="modal-dialog" >
-                  <div class="modal-content">
-                    <div class="modal-header bg-danger text-white">
-                      <h5 class="modal-title">Ventana de confirmación</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body">
-                      <p>{{mensaje}}</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-danger botones" data-bs-dismiss="modal" (click)="confirmarEliminacion()">Aceptar</button>
-                    </div>
-                  </div>
+            
+            <div class="row">
+                <div class=" col-12 col-md-8 offset-md-2 tabla mb-5 mt-5">
+                    <div class="card-body align-content-center ">
+                        <div class="row">
+                            <div class=" col-12 col-lg-8">
+                                <div class="card m-3">
+                                    <h5 class="card-header titulo">FILTROS</h5>
+                                    <div class="card-body align-content-center">
+                                        <div>
+                                          <input type="text" class="form-control" id="nombreRol" style="text-transform:uppercase"
+                                          [(ngModel)]="rolABuscar" name="nombreRol" placeholder="Ingrese nombre del Rol" (ngModelChange)="buscarRol($event)" > 
+                                        </div>
+                                      
+                                    </div>                    
+                              </div>
+                            </div>
+                            <div class=" col-12 col-lg-4">
+                                <div class="card m-3 ">
+                                    <h5 class="card-header titulo text-center">REGISTRO DE ROLES</h5>
+                                    <div class="card-body align-content-center vstack gap-2 mx-auto">
+                                        <button type="button" class="btn btn-outline-success"
+                                        data-bs-toggle="modal" data-bs-target="#ventanaModAgr" (click)="agregarRol()">
+                                            <i class="bi bi-plus-circle"></i> AGREGAR
+                                        </button> 
+                                    </div>
+                              </div>
+                            </div>
+                        </div>   
+                    </div>                    
                 </div>
             </div>
-
             <div class="row">
-                <div class=" col-12 col-sm-12 col-md-12">
+                <div class=" col-12 col-md-8 offset-md-2 tabla mb-5">
                     <div class="card m-3 text-center">
-                            <h5 class="card-header titulo">ROLES CARGADOS</h5>
-                            <div class="card-body align-content-center bg-secondary">
-                                   <div class="row ">
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="table-responsive">
-                                                <table class="table table-success table-striped">
-                                                    <thead class="titulo p-3">
-                                                        <tr class="text-center" >
-                                                            <th scope="col" class="text-center">NOMBRE</th>
-                                                            <th scope="col" class="text-center">ACCIONES</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr *ngFor="let r of roles ">
-                                                        <td>{{r.nombreRol}}</td>
-                                                        <td>
-                                                                    <div class=" col-5 vstack gap-2  mx-auto me-1 ">
-                                                                        <div class="vstack gap-2 mx-auto">
-                                                                            <button type="button" class="btn btn-btn bg-warning"
-                                                                            data-bs-toggle="modal" data-bs-target="#ventanaModAgr" (click)="modificarRol(r)">
-                                                                                <i class="bi bi-pencil "></i>
-                                                                            </button>
-                                                                            <button type="button" class="btn btn-btn bg-danger"
-                                                                            data-bs-toggle="modal" data-bs-target="#ventanaEliminar"(click)="eliminarRol(r)">
-                                                                                <i class="bi bi-trash3"></i>
-                                                                            </button> 
-                                                                        </div>
-                                                                    </div>    
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>  
-                                        </div>
-                                        <div class="col-md-8 col-sm-12">
-                                            <div class="card m-3 ">
-                                                <h5 class="card-header titulo ">FILTRAR ROLES</h5>
-                                                <div class="card-body align-content-center">
-                                                    <!--card-body vstack gap-2 mx-auto-->
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-12">
-                                                                <h2 class="form-label" style="color: white;">Seleccione Rol para filtrar:</h2>
-                                                                  <select class="form-control"  [(ngModel)]="filtro">
-                                                                      <option *ngFor="let per of roles" [ngValue]="per">{{per.nombreRol}}</option>
-                                                                  </select>
-                                                            <button class="btn-primary" (click)="filtrar()">Buscar</button>
+                        <div class=" table-title ">
+                            <div class=" card p-2 titulo">
+                                <div class="row">
+                                    <div class="col-12  text-center text-md-start">
+                                        <h2 class="ps-4 text-center"><b> ROLES</b></h2>
+                                    </div>
+                                   
+                                </div>      
+                            </div>
+                        </div>
+                        <div class="card-body align-content-center">
+                            <div class="row ">
+                                <div class="table-responsive">
+                                    <table class="table table-success table-striped">
+                                        <thead class="titulo p-3">
+                                            <tr class="text-center" >
+                                                <th scope="col" class="text-center">NOMBRE</th>
+                                                <th scope="col" class="text-center">PERSONAS</th>
+                                                <th scope="col" class="text-center">ACCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let r of roles ">
+                                            <td>{{r.nombreRol}}</td>
+                                            <td>
+                                                <div class="accordion" >
+                                                    <div class="accordion-item">
+                                                      <h2 class="accordion-header" id="headingTwo">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                        [attr.data-bs-target]="'#collapse'+r._id"
+                                                        aria-expanded="false" [attr.aria-controls]="'collapse'+r._id">
+                                                        VER PERSONAS
+                                                        </button>
+                                                      </h2>
+                                                      <div [id]="'collapse'+r._id" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                          <p *ngFor="let p of r.personas">{{p.apellido}}, {{p.nombre}}</p>
                                                         </div>
+                                                      </div>
                                                     </div>
-                                                        <div class="table-responsive">
-                                                            <table class="table table-success table-striped">
-                                                                <thead class="titulo p-3">
-                                                                    <tr class="text-center" >
-                                                                        <th scope="col" class="text-center">NOMBRE ROL</th>
-                                                                        <th scope="col" class="text-center">PERSONA</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <tr *ngFor="let r of roles ">
-                                                                    <td>{{r.nombreRol}}</td>
-                                                                    <td>
-                                                                           
-                                                                    </td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div> 
-                                                </div>
-                                          </div> 
-                                        </div>
-                                   </div>      
-                            </div>        
+                                                    
+                                                  </div>
+                                            </td>
+                                            <td>
+                                                <div class="">
+                                                    <div class=" d-flex justify-content-center">
+                                                        <button type="button" class="btn btn-btn bg-warning me-2 btnAcciones"
+                                                        data-bs-toggle="modal" data-bs-target="#ventanaModAgr" (click)="modificarRol(r)">
+                                                            <i class="bi bi-pencil "></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-btn bg-danger btnAcciones"
+                                                        data-bs-toggle="modal" data-bs-target="#ventanaEliminar"(click)="eliminarRol(r)">
+                                                            <i class="bi bi-trash3"></i>
+                                                        </button> 
+                                                    </div>
+                                                </div>    
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>     
+                               </div>      
+                        </div>        
                     </div>
                 </div>
             </div>                

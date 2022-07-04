@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
@@ -15,12 +16,14 @@ export class RolComponent implements OnInit {
   roles!:Array<Rol>;
   rol:Rol = new Rol();
   rolAEliminar!:Rol;
+  rolABuscar:string="";
   persona:Persona=new Persona();
   filtro!:string;
   accion:string="new";
   mensaje!:string;
  
-  constructor(private rolService:RolService) { 
+  constructor(private rolService:RolService,
+              private toast:ToastrService) { 
    this.cargarRoles();
   }
 
@@ -28,37 +31,53 @@ export class RolComponent implements OnInit {
   }
 
   cargarRoles(){
-    this.roles=new Array<Rol>();
+    this.roles= new Array<Rol>();
     this.rolService.getRoles().subscribe(
       result=>{
-          var unRol=new Rol();
-          result.forEach((element:any) => {
-            Object.assign(unRol,element);
-            this.roles.push(unRol);
-            unRol=new Rol();
+        result.forEach((item:any) => {
+          console.log(item);
+          var personas = new Array<Persona>();
+          var rol = new Rol();
+          item.personas.forEach((ipers:any) => {
+            
+            var persona = new Persona();
+            Object.assign(persona,ipers);
+            personas.push(persona);  
           });
-          console.log(this.roles);
+          rol.personas= personas;
+          Object.assign(rol,item);
+          
+          this.roles.push(rol);
+        });
       },
       error=>{
+        console.log(error.msg);
       }
-    );
+    )
   }
 
-  filtrar(){
-
-  }
-
+ 
   agregarRol(){
     this.accion="new";
     this.rol= new Rol();
   }
 
   guardarRol(rolForm: NgForm){
+    var nombreRol= this.rol.nombreRol.toUpperCase();
+    this.rol.nombreRol= nombreRol;
     this.rolService.createRol(this.rol).subscribe(
       result=>{
-        alert(result.msg);
-        rolForm.reset;
-        this.cargarRoles();
+        if(result.status=="1"){
+          this.toast.success("El rol se registro exitosamente","Gestion de Roles");
+          rolForm.reset;
+          this.cargarRoles();
+        }
+          
+        if(result.status=="2")
+          this.toast.error(result.msg,"Gestion de Roles");
+        
+        //console.log(result.msg);
+        
       },
       error=>{
         console.log(error.msg);
@@ -72,9 +91,14 @@ export class RolComponent implements OnInit {
   }
 
   actualizarRol(){
+    var nombreRol= this.rol.nombreRol.toUpperCase();
+    this.rol.nombreRol= nombreRol;
     this.rolService.updateRol(this.rol).subscribe(
       result=>{
-        alert(result.msg);
+        if(result.status=="1")
+          this.toast.success("El rol fué modificado exitosamente","Gestion de Roles");
+        if(result.status=="2")
+        this.toast.error(result.msg,"Gestion de Roles");
        this.cargarRoles();
       },
       error=>{
@@ -93,7 +117,8 @@ export class RolComponent implements OnInit {
       result=>{
         if(result.status="1")
         console.log(result.msg);
-        alert(result.msg);
+        //alert(result.msg);
+        this.toast.success("El rol fué eliminado exitosamente","Gestión de Roles");
         this.cargarRoles();
       },
       error=>{
@@ -101,5 +126,30 @@ export class RolComponent implements OnInit {
         console.log(error.msg);
       }
     )
+  }
+
+  buscarRol(nombreRol:string){
+    this.roles= new Array<Rol>();
+    // this.rolService.buscarRolPorNombre(nombreRol).subscribe(
+    //   result=>{
+    //     result.forEach((item:any) => {
+      
+    //       var personas = new Array<Persona>();
+    //       var rol = new Rol();
+    //       item.personas.forEach((ipers:any) => {
+            
+    //         var persona = new Persona();
+    //         Object.assign(persona,ipers);
+    //         personas.push(persona);  
+    //       });
+    //       rol.personas= personas;
+    //       Object.assign(rol,item);
+    //       this.roles.push(rol);
+    //     });
+    //   },
+    //   error=>{
+    //     console.log(error.msg);
+    //   }
+    // )
   }
 }

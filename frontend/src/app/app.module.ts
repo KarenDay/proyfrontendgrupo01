@@ -16,7 +16,9 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { MisAnunciosComponent } from './components/mis-anuncios/mis-anuncios.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,9 @@ import { MisAnunciosComponent } from './components/mis-anuncios/mis-anuncios.com
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
+    QRCodeModule
     
   ],
   providers: [],

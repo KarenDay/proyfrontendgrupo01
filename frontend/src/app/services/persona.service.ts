@@ -111,4 +111,30 @@ export class PersonaService {
     }
     return this._http.get(this.urlBase+"persona/filtro/dni",httpOptions);
   }
+
+  public getEncargados(idArea:string,idRol:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("idArea",idArea)
+      .append("idRol",idRol)
+    }
+    return this._http.get(this.urlBase+"persona/filtro/encargados",httpOptions);
+  }
+
+  public busquedaCombinada(legajo:string,nombre:string,apellido:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("legajo",legajo)
+      .append("nombre",nombre)
+      .append("apellido",apellido)
+    }
+    return this._http.get(this.urlBase+"persona/busquedaCombinada",httpOptions);
+  }
+  
 }
