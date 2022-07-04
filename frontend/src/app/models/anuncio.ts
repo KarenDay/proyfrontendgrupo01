@@ -10,8 +10,8 @@ export class Anuncio {
     mediosDePublicacion:Array<Medio>= new Array<Medio>();
     fechaEntrega!:Date;
     estado!:string;
-    destinatario:Rol=new Rol();
-    recursos!:string;
+    destinatario:Array<Rol>= new Array<Rol>();
+    recursos:Array<string>= new Array<string>(); 
     tiempoLectura!:string;
     redactor:Persona= new Persona();
     area:Area=new Area();

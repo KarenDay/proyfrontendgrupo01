@@ -6,3 +6,8 @@
     box-shadow: black 1px 1px 5px;
     border-radius: 5px;
 }
+
+.btnAcciones:hover{
+    box-shadow: black 1px 2px 10px;
+    border-radius: 5px;
+}
