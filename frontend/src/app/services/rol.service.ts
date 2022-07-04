@@ -65,5 +65,14 @@ export class RolService {
     }
     return this._http.delete(this.urlBase+"rol/eliminar/"+id,httpOptions);
   }
-
+  
+  public buscarRolPorNombre(nombreRol:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+      }),
+      params : new HttpParams()
+      .append("nombreRol",nombreRol)
+    }
+    return this._http.get(this.urlBase+"rol/nombre",httpOptions);
+  }
 }

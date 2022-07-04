@@ -19,6 +19,7 @@ import { MisAnunciosComponent } from './components/mis-anuncios/mis-anuncios.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anuncio-encargado.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     LoginComponent,
     HeaderComponent,
     FooterComponent,
-    MisAnunciosComponent
+    MisAnunciosComponent,
+    AnuncioEncargadoComponent
   ],
   imports: [
     BrowserModule,
