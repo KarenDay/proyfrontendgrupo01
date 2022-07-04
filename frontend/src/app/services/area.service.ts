@@ -98,4 +98,15 @@ export class AreaService {
     }
     return this._http.delete(this.urlBase+"area/deleteResponsable",httpOptions);
   }
+
+  public buscarAreaPorNombre(nombreArea:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("nombreArea",nombreArea)
+    }
+    return this._http.get(this.urlBase+"area/filtro/nombre",httpOptions);
+  }
 }

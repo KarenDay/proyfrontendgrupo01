@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Anuncio } from 'src/app/models/anuncio';
 import { Area } from 'src/app/models/area';
 import { Medio } from 'src/app/models/medio';
@@ -15,14 +16,24 @@ export class AnuncioVistaComponent implements OnInit {
   indice! :number;
   anuncios:Array<Anuncio>= new Array<Anuncio>();
   anuncio:Anuncio=new Anuncio();
+  myAngularxQrCode!:any;
+
+  qrCodeDownloadLink: SafeUrl = "";
   constructor(
               private anuncioService:AnuncioService) {
                 this.cargarAnuncios();
                 this.iniciar();
+                this.myAngularxQrCode="https://d7d4-2803-cf00-3ff-100-903b-1bbe-4bdb-2f5b.sa.ngrok.io/index";
+                //this.myAngularxQrCode="";
                }
 
   ngOnInit(): void {
    //this.util.crearUsuariosPorDefecto();
+  }
+
+
+  onChangeURL(url: SafeUrl) {
+    this.qrCodeDownloadLink = url;
   }
 
   cargarAnuncios(){
@@ -54,7 +65,7 @@ export class AnuncioVistaComponent implements OnInit {
           // });
           anuncio.redactor= redactor;
           anuncio.area=area;
-          anuncio.destinatario= destinatario;
+          //anuncio.destinatario= destinatario;
           anuncio.mediosDePublicacion=medios;
          // anuncio.recursos=recursos;
           
@@ -74,6 +85,8 @@ export class AnuncioVistaComponent implements OnInit {
     this.indice=0;
     if (this.indice < this.anuncios.length){
         this.anuncio = this.anuncios[this.indice];
+        this.myAngularxQrCode="http://localhost:4200/anuncio-recursos/"+this.anuncios[this.indice]._id;
+        console.log(this.myAngularxQrCode);
     }
   }
 
@@ -81,9 +94,13 @@ export class AnuncioVistaComponent implements OnInit {
     this.indice = this.indice +1;
     if (this.indice < this.anuncios.length){
       this.anuncio = this.anuncios[this.indice];
+      this.myAngularxQrCode="http://localhost:4200/anuncio-recursos/"+this.anuncios[this.indice]._id;
+        console.log(this.myAngularxQrCode);
     }else{
       this.indice = 0;
       this.iniciar();
+      this.myAngularxQrCode="http://localhost:4200/anuncio-recursos/"+this.anuncios[this.indice]._id;
+        console.log(this.myAngularxQrCode);
     }
 
   }
@@ -92,9 +109,13 @@ export class AnuncioVistaComponent implements OnInit {
     this.indice = this.indice -1;
     if (this.indice >=0) {
       this.anuncio = this.anuncios[this.indice];
+      this.myAngularxQrCode="http://localhost:4200/anuncio-recursos/"+this.anuncios[this.indice]._id;
+        console.log(this.myAngularxQrCode);
     }else{
       this.indice=this.anuncios.length-1;
       this.anuncio =this.anuncios[this.indice];
+      this.myAngularxQrCode="http://localhost:4200/anuncio-recursos/"+this.anuncios[this.indice]._id;
+        console.log(this.myAngularxQrCode);
     }
 
   }
