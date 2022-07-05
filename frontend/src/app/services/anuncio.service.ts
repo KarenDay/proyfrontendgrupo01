@@ -44,8 +44,9 @@ export class AnuncioService {
       })     
     }
     let body = JSON.stringify(anuncio);
-    // console.log("Enviado al backend: ");
-    // console.log(anuncio.recursos);
+     console.log("Enviado al backend: ");
+     console.log(anuncio);
+
     return this._http.post(this.urlBase+"anuncio/",body,httpOptions);
   }
   
@@ -82,6 +83,39 @@ export class AnuncioService {
       //.append("id",id)
     }
     return this._http.delete(this.urlBase+"anuncio/eliminar/"+id,httpOptions);
+  }
+
+  public getAnuncioPorArea(idArea:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("area",idArea)
+    }
+    return this._http.get(this.urlBase+"anuncio/filtro/area",httpOptions);
+  }
+
+  public getAnuncioPorRedactor(idRedactor:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("redactor",idRedactor)
+    }
+    return this._http.get(this.urlBase+"anuncio/filtro/redactor",httpOptions);
+  }
+
+  public getAnuncioPorAutorizar(idArea:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("area",idArea)
+    }
+    return this._http.get(this.urlBase+"anuncio/filtro/areaYestado",httpOptions);
   }
 
 

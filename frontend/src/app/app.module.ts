@@ -12,6 +12,10 @@ import { AreaEncargadosComponent } from './components/area/area-encargados/area-
 import { PersonaComponent } from './components/persona/persona.component';
 import { PersonaFormUsuarioComponent } from './components/persona/persona-form-usuario/persona-form-usuario.component';
 import { PersonaFormComponent } from './components/persona-form/persona-form.component';
+
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { AnuncioAreaComponent } from './components/anuncio-area/anuncio-area.component';
+
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
@@ -20,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anuncio-encargado.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,11 +36,16 @@ import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anunci
     PersonaComponent,
     PersonaFormUsuarioComponent,
     PersonaFormComponent,
+
+    EstadisticasComponent,
+    AnuncioAreaComponent
+
     LoginComponent,
     HeaderComponent,
     FooterComponent,
     MisAnunciosComponent,
     AnuncioEncargadoComponent
+
   ],
   imports: [
     BrowserModule,

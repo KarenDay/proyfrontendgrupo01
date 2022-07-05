@@ -20,7 +20,7 @@ export class PersonaComponent implements OnInit {
   rol:Rol=new Rol();
   area:Area=new Area();
   mensaje!:string;
-  
+  personaFiltro:Persona= new Persona();
   constructor(private personaService:PersonaService,
               private areaService:AreaService,
               private router:Router) {
@@ -31,6 +31,7 @@ export class PersonaComponent implements OnInit {
   
   inicializar(){
     this.personas= new Array<Persona>();
+    this.personaFiltro= new Persona();
   }
 
   obtenerArea(id:string,area:Area){
@@ -105,9 +106,34 @@ export class PersonaComponent implements OnInit {
   agregarUsuario(persona:Persona){
     this.router.navigate(["usuario-form", persona._id]);
   }
-  // eliminarRol(rol:Rol){
-
-  // }
+  
+  fitrarPersonas(){
+    this.personas= new Array<Persona>();
+    this.personaService.busquedaCombinada(this.personaFiltro.legajo,this.personaFiltro.nombre,this.personaFiltro.apellido).subscribe(
+      result=>{
+        console.log(result);
+        result.forEach((item:any) => {
+          var roles = new Array<Rol>();
+          var persona = new Persona();
+          var area =  new Area();
+          Object.assign(area,item.area);
+          item.roles.forEach((irol:any) => {
+            var rol = new Rol();
+            Object.assign(rol,irol);
+            roles.push(rol);  
+          });
+          persona.roles= roles;
+          persona.area=area;
+          Object.assign(persona,item);
+          this.personas.push(persona);
+      
+        });
+      },
+      error=>{
+        console.log(error.msg);
+      }
+    )
+  }
   ngOnInit(): void {
     
   }
