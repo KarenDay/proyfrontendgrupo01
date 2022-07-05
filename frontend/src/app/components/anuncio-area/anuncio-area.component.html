@@ -35,6 +35,68 @@
                                             Filtrar
                                         </button>
                                     </h2>
+                                    <!-- filtro anuncio  -->
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <form class="row g-3">
+
+                                                <div class="col-auto">
+                                                    <label for="textoAnuncio" class="visually-hidden">Texto En
+                                                        Anuncio</label>
+                                                    <input type="text" class="form-control" id="textoAnuncio"
+                                                        placeholder="Texto en Anuncio" name="textoAnuncio"
+                                                        [(ngModel)]="texto"
+                                                        (ngModelChange)="capturarTexto(texto)">
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <label for="estado" class="visually-hidden">Estado</label>
+                                                    <input type="text" class="form-control" id="estado"
+                                                        placeholder="Estado" name="estado" [(ngModel)]="estado"
+                                                        (ngModelChange)="capturarEstado(estado)">
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <label for="fechaI" class="visually-hidden">Fecha Inicial</label>
+                                                    <input type="date" class="form-control" id="start"
+                                                     name="start" [(ngModel)]="fechaInicial"
+                                                     (ngModelChange)="capturarFechas(fechaInicial,fechaFinal)">
+                                                </div>
+                                                <div class="col-auto">
+                                                    <label for="fechaF" class="visually-hidden">Fecha Final</label>
+                                                    <input type="date" class="form-control" id="start"
+                                                     name="end" [(ngModel)]="fechaFinal"
+                                                     (ngModelChange)="capturarFechas(fechaInicial,fechaFinal)">
+                                                </div>
+                                                <div class="col-auto">
+                                                    <label for="rol" class="visually-hidden">Rol</label>
+                                                    <input type="rol" class="form-control" id="rol" placeholder="Rol"
+                                                     name="rol" [(ngModel)]="searchRol"
+                                                     >
+                                                </div>
+                                                <div class="col-auto">
+                                                    <label for="redactor" class="visually-hidden">Redactor</label>
+                                                    <input type="redactor" class="form-control" id="redactor" placeholder="Redactor"
+                                                     name="redactor" [(ngModel)]="searchRedactor"
+                                                     >
+                                                </div>
+                                                
+
+                                                <!-- <div class="col-auto">
+                                              <label for="apellido" class="visually-hidden">Apellido</label>
+                                              <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido"
+                                              >
+                                            </div> -->
+
+                                                <div class="col-auto">
+                                                    <button type="submit" class="btn btn-primary mb-3">BUSCAR</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!--  -->
+
                                     <!-- <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                           <form class="row g-3">
@@ -101,7 +163,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let a of anuncios">
+                                <tr *ngFor="let a of anuncios | filter:searchRol | filter:searchRedactor">
                                     <td><img [src]="a.tipoContenido" style="height: 200px;" class="img-fluid"
                                             alt="Responsive image"></td>
                                     <td>{{a.estado}}</td>
