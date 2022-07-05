@@ -195,11 +195,14 @@
                                             <label for="recursos">Recursos</label>
                                             <form class="row ">
                                               <div class="col-8">
-                                                <input type="text" class="form-control" id="recursos" name="recursos" [disabled]="accion=='update'" [(ngModel)]="archivo" 
-                                                       placeholder="Ingrese Url de los recursos extras para su anuncio">
+                                                <input id="recursos" [disabled]="accion=='update'" name="recursos" type="file" 
+                                                 alife-file-to-base64 multiple accept="image/x-png,image/gif,image/jpeg"
+                                                  required class="form-control" (onFileChanged)="agregarListaRecursos($event)">
+                                                <!-- <input type="text" class="form-control" id="recursos" name="recursos" [disabled]="accion=='update'" [(ngModel)]="archivo" 
+                                                       placeholder="Ingrese Url de los recursos extras para su anuncio"> -->
                                               </div>
                                               <div class="col-4">  
-                                                <button class="btn btn-outline-dark" type="button" (click)="agregarRecurso()" [disabled] ="accion=='update' || archivo==''" >Agregar recurso</button>
+                                                <button class="btn btn-outline-dark" type="button"  [disabled]="accion=='update'"  (click)="agregarRecurso()" >Agregar recurso</button>
                                               </div>
                                             </form>
                                            
@@ -226,7 +229,7 @@
                        </div>
             </div>
             <div class=" col-12 col-sm-12 col-md-12 col-lg-4 offset-lg-1">
-              <div class="card m-3 tabla">
+            <div class="card m-3 tabla">
                       <h5 class="card-header titulo " >Archivos adjuntos</h5>
                       <div class="card-body align-content-center">
                             <table class="table">
@@ -238,7 +241,11 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let a of archivos">
-                                  <td>{{a}}</td>
+                                  <!-- <td>{{a}}</td> -->
+                                  <td>
+                                    <img src="{{a}}" class="img-fluid" alt="recursos para el anuncio" style="height:100px ;">
+                                    
+                                  </td>
                                   <td>
                                     <button [disabled]="accion=='update'" type="button" class="btn btn-btn bg-danger btnAcciones" (click)="quitarRecurso(a)" >
                                             <i class="bi bi-trash3"></i>
@@ -255,5 +262,6 @@
   </div>
 
 </div>
+
 
 

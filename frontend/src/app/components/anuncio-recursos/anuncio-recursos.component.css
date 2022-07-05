@@ -6,3 +6,11 @@
     box-shadow: black 1px 1px 5px;
     border-radius: 5px;
 }
+.fondo{
+    background-color: rgba(2, 31, 118, 0.247);
+}
+
+.letra{
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

@@ -19,6 +19,7 @@ export class AnuncioEncargadoComponent implements OnInit {
   encargado:Persona= new Persona();
   mensaje:string="";
   anuncioACancelar:Anuncio=new Anuncio();
+  medio:string="";
   constructor(private anuncioService:AnuncioService,
               private loginService:LoginService,
               private toast:ToastrService) { 
@@ -34,7 +35,7 @@ export class AnuncioEncargadoComponent implements OnInit {
         console.log(this.encargado);
         
         this.anuncios= new Array<Anuncio>();
-        /*this.anuncioService.getAnuncioPorAutorizar(this.encargado.area._id).subscribe(
+        this.anuncioService.getAnuncioPorAutorizar(this.encargado.area._id).subscribe(
         result=>{
                 console.log("entro");
                 console.log(result);
@@ -67,7 +68,7 @@ export class AnuncioEncargadoComponent implements OnInit {
       error=>{
         console.log(error.msg);
       }
-    )*/
+    )
       },
       error=>{
         console.log(error.msg);
@@ -88,6 +89,13 @@ export class AnuncioEncargadoComponent implements OnInit {
     )
   }
 
+  controlarMedio(anuncio:Anuncio){
+    this.medio =  anuncio.mediosDePublicacion.find((item)=>(item.nombreMedio=="FACEBOOK"))?.nombreMedio!;
+    if (this.medio=="FACEBOOK")
+      console.log("PUBLICAR EN FACEBOOK");
+    else
+      console.log("NO SE PUBLICA EN FACEBOOK");
+  }
   autorizarAnuncio(anuncio:Anuncio){
     console.log(anuncio);
     anuncio.estado="AUTORIZADO";
@@ -95,7 +103,8 @@ export class AnuncioEncargadoComponent implements OnInit {
     this.anuncioService.updateAnuncio(anuncio).subscribe(
       result=>{
           this.toast.success("EL ANUNCIO HA SIDO AUTORIZADO","Gestion de Anuncios");
-          this.cargarAnuncios();
+          this.controlarMedio(anuncio); //Ya no se carga de nuevos los anuncios sino que controla el medio a publicar
+          //this.cargarAnuncios();
       },
       error=>{
         console.log(error.msg);

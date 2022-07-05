@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Persona } from '../models/persona';
 import { Usuario } from '../models/usuario';
 
 @Injectable({
@@ -83,16 +84,15 @@ export class LoginService {
     return id;
   }
 
-  public getUsuarioByPersona(idPersona:string):Observable<any>{
-    console.log("id a buscar :"+idPersona);
+  public getUsuarioByPersona(persona:Persona):Observable<any>{
     const httpOptions={
       headers: new HttpHeaders({
-      
+        "Content-Type" : "application/json"
       }),
       params : new HttpParams()
-      .append("idPersona",idPersona)
+      .append("dni",persona.dni)
     }
-    console.log(idPersona);
+    console.log(persona.dni);
     return this._http.get(this.hostBase+"filtro/persona",httpOptions);
   }
   

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+           
+    <div class="row mt-5">
+        <div class=" col-12 col-md-6 offset-md-3 tabla mb-5">
+            <div class="card m-3 text-center">
+                <div class=" table-title ">
+                    <div class=" card p-2 titulo">
+                        <div class="row">
+                            <div class="col-12  text-center text-md-start">
+                                <h2 class="ps-4 text-center"><b> RECURSOS ADICIONALES AL ANUNCIO</b></h2>
+                            </div>
+                        </div>      
+                    </div>
+                </div>
+                <div class="card-body align-content-center">
+                    <div class="row ">
+                        <div class="table-responsive">
+                            <table class="table table-success table-striped">
+                                <thead class="titulo p-3">
+                                    <tr class="text-center" >
+                                        <th scope="col" class="text-center">Recursos</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let r of archivos">
+                                    <td>
+                                       <a target="_blank" [href]="r">  <img class="img-fluid"  style="height: 400px; width:600px" [src]="r"></a>
+                                    </td> 
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>     
+                       </div>      
+                </div>        
+            </div>
+        </div>
+    </div>                
+</div>
+
+
+

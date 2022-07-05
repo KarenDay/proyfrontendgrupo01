@@ -12,7 +12,6 @@ import { AreaEncargadosComponent } from './components/area/area-encargados/area-
 import { PersonaComponent } from './components/persona/persona.component';
 import { PersonaFormUsuarioComponent } from './components/persona/persona-form-usuario/persona-form-usuario.component';
 import { PersonaFormComponent } from './components/persona-form/persona-form.component';
-
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { AnuncioAreaComponent } from './components/anuncio-area/anuncio-area.component';
 
@@ -23,7 +22,10 @@ import { MisAnunciosComponent } from './components/mis-anuncios/mis-anuncios.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anuncio-encargado.component';
+import { MedioComponent } from './components/medio/medio.component';
+import { AnuncioRecursosComponent } from './components/anuncio-recursos/anuncio-recursos.component';
 
 @NgModule({
   declarations: [
@@ -36,15 +38,15 @@ import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anunci
     PersonaComponent,
     PersonaFormUsuarioComponent,
     PersonaFormComponent,
-
     EstadisticasComponent,
-    AnuncioAreaComponent
-
+    AnuncioAreaComponent,
     LoginComponent,
     HeaderComponent,
     FooterComponent,
     MisAnunciosComponent,
-    AnuncioEncargadoComponent
+    AnuncioEncargadoComponent,
+    MedioComponent,
+    AnuncioRecursosComponent
 
   ],
   imports: [
@@ -54,7 +56,8 @@ import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anunci
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
-    QRCodeModule
+    QRCodeModule,
+    AlifeFileToBase64Module
     
   ],
   providers: [],

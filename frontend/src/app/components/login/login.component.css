@@ -1,11 +1,20 @@
 .imagen{
     /*background-color: rgba(33, 75, 30, 0.862);*/
-    box-shadow: rgb(224, 37, 37) 1px 1px 5px;
+    box-shadow: rgb(0, 0, 0) 1px 1px 5px;
     border-radius: 20px;
+   
+}
+.section{
+    position: relative;
+    height: 100%;
 }
 
 .tabla{
     /*background-color: rgba(33, 75, 30, 0.862);*/
     box-shadow: rgb(0, 0, 0) 1px 1px 5px;
     border-radius: 10px;
+}
+.fondo{
+    background: linear-gradient(to left, rgba(6, 6, 6, 0.429), rgba(6, 6, 6, 0.478)), url('../../../assets/Medicina-legal-1.jpg');
+    background-size:cover;
 }
