@@ -46,6 +46,7 @@ export class AnuncioService {
     let body = JSON.stringify(anuncio);
      console.log("Enviado al backend: ");
      console.log(anuncio);
+
     return this._http.post(this.urlBase+"anuncio/",body,httpOptions);
   }
   
@@ -116,5 +117,6 @@ export class AnuncioService {
     }
     return this._http.get(this.urlBase+"anuncio/filtro/areaYestado",httpOptions);
   }
+
 
 }

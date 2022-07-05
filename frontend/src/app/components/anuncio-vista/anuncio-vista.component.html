@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-10 offset-md-1 text-center mb-5">
+        <div class="card text-center  tabla mt-5" style="background-color: #34495E ;">
+             <h1 class="card-header titulo text-center text-white" >ANUNCIOS QUE TE PUEDEN INTERESAR</h1>
+             <div id="carouselExampleInterval" class="carousel slide " data-bs-ride="carousel">
+                  <div class="carousel-inner align-content-center">
+                    <div class="carousel-item active align-content-center text-center" data-bs-interval="1000">
+                      <img style="width: 80%; padding: 0%; margin: 0%; padding-left: 18%;height: 400px;" [src]="anuncio.tipoContenido" class="d-block offset-1 mt-5 mb-5" alt="Imagenes de anuncios">
+                    </div>  
+                  </div>
+            <div class="col-md-8 offset-md-2">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev"
+                (click)="anterior()">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next"
+                        (click)="siguiente()">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+             
+            </div>
+            <div class="row">
+              <div class="col-md-8 col-sm-12 border-primary">
+                  <h2 style="color:rgb(255, 255, 255); font-family: Arial, Helvetica, sans-serif;">{{anuncio.textoAnuncio}}</h2>
+              
+              </div>
+              <div class="col-md-4 col-sm-12 border-primary">
+                  <h3 style="font-family: cursive; color: azure;">Mas informacion</h3>
+                  <div class="mb-3">
+                    <!-- (qrCodeURL)="onChangeURL($event)" -->
+                    <qrcode  [qrdata]="myAngularxQrCode" (qrCodeURL)="onChangeURL($event)" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                    <a [href]="qrCodeDownloadLink" download="qrcode">Download</a>
+                  </div> 
+                  <!-- <img style="width: 50%;padding: 2%;"  [src]="anuncio.recursos"> -->
+              </div>
+          </div>
+             
+        </div>    
+     </div>
+    </div>
+  </div>
+  

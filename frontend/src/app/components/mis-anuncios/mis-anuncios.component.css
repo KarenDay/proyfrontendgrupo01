@@ -1,0 +1,8 @@
+.titulo{
+    background-color: rgba(23, 80, 146, 0.532);
+}
+.tabla{
+    /*background-color: rgba(33, 75, 30, 0.862);*/
+    box-shadow: black 1px 1px 5px;
+    border-radius: 5px;
+}

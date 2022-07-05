@@ -17,18 +17,22 @@
     </div>
 </div>
 <div class="row">
+
     <div class="card col-6 offset-3 tabla mt-5 mb-5">
+
         <div class="card m-3 ">
             <h5 class="card-header titulo text-center">BUSQUEDA</h5>
             <div class="card-body align-content-center">
                     <div class="mb-3">
                         <label for="dni" class="form-label">DNI:</label>
                         <input type="number" id="dni" class="form-control"  name="dni"  placeholder="Ingrese DNI de la persona"
+
                         [(ngModel)]="dni" (ngModelChange)="buscarPorDni($event)">
                     </div>
                     <!-- <div>
                         <button type="submit" class="btn btn-btn btn-dark" (click)="buscarPorDni()" >Buscar</button>      
                     </div> -->
+
                     
             </div>                    
       </div>
@@ -37,6 +41,21 @@
 <div class="row">
     <div class="card col-6 offset-3 tabla mt-1 mb-5">
             <div class="table-wrapper mt-5 ">
+
+                <!-- <div class=" table-title">
+                    <div class=" card p-1 titulo m-1">
+                        <div class="row">
+                            <div class=" col-12  ">
+                                <div class="card m-3 ">
+                                    <div class="card m-3 p-1 titulo">
+                                        <h5 class=" text-center "></h5>             
+                                    </div>                  
+                                  </div>
+                            </div>
+                        </div>      
+                    </div>
+                </div> -->
+
                 <div class="row p-2 bg-white">
                     <div class="table-responsive">
                         <table 
@@ -85,5 +104,4 @@
             </div>
     </div>
 </div>
-
 

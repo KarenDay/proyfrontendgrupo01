@@ -1,0 +1,6 @@
+.container-fluid{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: rgba(255, 242, 242, 0.905);
+}

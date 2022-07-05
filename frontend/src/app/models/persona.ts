@@ -6,9 +6,9 @@ export class Persona {
     apellido!:string;
     nombre!:string;
     legajo!: string;
-    dni!:number;
+    dni!:string;
     email!: string;
-    area!:Area;
+    area:Area= new Area();
     roles:Array<Rol>= new Array<Rol>();
 
     constructor(){}

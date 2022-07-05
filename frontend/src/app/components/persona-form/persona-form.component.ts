@@ -11,12 +11,14 @@ import { Area } from 'src/app/models/area';
 import { AreaService } from 'src/app/services/area.service';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-persona-form',
   templateUrl: './persona-form.component.html',
   styleUrls: ['./persona-form.component.css'],
 })
 export class PersonaFormComponent implements OnInit {
+
   tituloPrincipal: string = 'REGISTRO PERSONA';
   persona: Persona = new Persona();
   personaAEliminar!: Persona;
@@ -67,6 +69,7 @@ export class PersonaFormComponent implements OnInit {
       )!;
       this.cargarUsuarios(this.persona);
     });
+
   }
 
   async cargarUsuarios(persona: Persona) {
@@ -152,6 +155,7 @@ export class PersonaFormComponent implements OnInit {
     });
   }
 
+
   async cargarAreas() {
     this.areas = new Array<Area>();
     this.areaService.getAreas().subscribe((result) => {
@@ -199,6 +203,7 @@ export class PersonaFormComponent implements OnInit {
     console.log('Rol' + rol);
     this.mensaje = 'Seguro que desea eliminar el rol?';
     this.rolAEliminar = rol;
+
   }
 
   guardarUsuario(usuarioForm: NgForm) {
@@ -235,4 +240,5 @@ export class PersonaFormComponent implements OnInit {
       }
     });
   }
+
 }
