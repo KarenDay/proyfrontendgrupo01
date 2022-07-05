@@ -26,6 +26,10 @@ import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { AnuncioEncargadoComponent } from './components/anuncio-encargado/anuncio-encargado.component';
 import { MedioComponent } from './components/medio/medio.component';
 import { AnuncioRecursosComponent } from './components/anuncio-recursos/anuncio-recursos.component';
+import { CorreoComponent } from './components/correo/correo.component';
+import { FacebookComponent } from './components/facebook/facebook.component';
+import { FacebookModule } from 'ngx-facebook';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,9 @@ import { AnuncioRecursosComponent } from './components/anuncio-recursos/anuncio-
     MisAnunciosComponent,
     AnuncioEncargadoComponent,
     MedioComponent,
-    AnuncioRecursosComponent
+    AnuncioRecursosComponent,
+    CorreoComponent,
+    FacebookComponent
 
   ],
   imports: [
@@ -57,7 +63,9 @@ import { AnuncioRecursosComponent } from './components/anuncio-recursos/anuncio-
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     QRCodeModule,
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
+    FacebookModule.forRoot(),
+    Ng2SearchPipeModule
     
   ],
   providers: [],

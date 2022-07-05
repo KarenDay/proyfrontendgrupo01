@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row col-6 offset-3">
+        <form>
+            <div class="row justify-content-center">
+                <label for="">Correo:</label>
+                <input type="email" placeholder="Correo" class="form-control" name="correo" [(ngModel)]="correo">
+
+                <label for="">Asunto:</label>
+                <input type="text" placeholder="Asunto" class="form-control" name="asunto" [(ngModel)]="asunto">
+
+                <label for="">Mensaje:</label>
+                <textarea name="mensajeEmail" id="" cols="30" rows="10" class="form-control" [(ngModel)]="mensaje">
+            </textarea>
+
+                <button class="btn btn-outline-dark" (click)="enviarMail()">Enviar Mail</button>
+
+            </div>
+        </form>
+    </div>
+</div>

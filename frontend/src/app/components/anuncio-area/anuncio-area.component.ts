@@ -10,85 +10,126 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-anuncio-area',
   templateUrl: './anuncio-area.component.html',
-  styleUrls: ['./anuncio-area.component.css']
+  styleUrls: ['./anuncio-area.component.css'],
 })
 export class AnuncioAreaComponent implements OnInit {
-
-  anuncios:Array<Anuncio>= new Array<Anuncio>();
-  persona:Persona= new Persona();
-  mensaje:string="";
-  mostrarParaEstado:string="AUTORIZADO";
-  constructor(private anuncioService:AnuncioService,
-              public loginService:LoginService) { 
-                this.cargarAnuncios();
-              
+  //--variables de la busqueda avanzada
+  texto: string = '';
+  estado: string = '';
+  fechaInicial: string = '';
+  fechaFinal: string = '';
+  searchRol:any;
+  searchRedactor:any;
+  //--
+  anuncios: Array<Anuncio> = new Array<Anuncio>();
+  persona: Persona = new Persona();
+  mensaje: string = '';
+  mostrarParaEstado: string = 'AUTORIZADO';
+  constructor(
+    private anuncioService: AnuncioService,
+    public loginService: LoginService
+  ) {
+    this.cargarAnuncios();
   }
 
-  cargarAnuncios(){
-    
+  cargarAnuncios() {
     this.loginService.personaLoggedIn().subscribe(
-      result=>{
-        Object.assign(this.persona,result);
+      (result) => {
+        Object.assign(this.persona, result);
         console.log(this.persona);
-        
-        this.anuncios= new Array<Anuncio>();
+
+        this.anuncios = new Array<Anuncio>();
         this.anuncioService.getAnuncioPorArea(this.persona.area._id).subscribe(
-        result=>{
-                console.log("entro");
-                console.log(result);
-                result.forEach((item:any) => {
-                var anuncio = new Anuncio();
-                var medios = new Array<Medio>();
-                var destinatarios = new Array<Rol>();
-                var redactor = new Persona();
-                var area =  new Area();
-                Object.assign(area,item.area);
-                Object.assign(redactor,item.redactor);
-                item.mediosDePublicacion.forEach((imedio:any) => {
-                    console.log(imedio);
-                    var medio = new Medio();
-                    Object.assign(medio,imedio);
-                    medios.push(medio);  
-                 });
-                 item.destinatario.forEach((idest:any) => {
-                  console.log(idest);
-                  var destinatario = new Rol();
-                  Object.assign(destinatario,idest);
-                  destinatarios.push(destinatario);  
-               });
-          
-          anuncio.redactor= redactor;
-          anuncio.area=area;
-          anuncio.destinatario= destinatarios;
-          anuncio.mediosDePublicacion=medios;
-          
-          Object.assign(anuncio,item);
+          (result) => {
+            console.log('entro');
+            console.log(result);
+            result.forEach((item: any) => {
+              var anuncio = new Anuncio();
+              var medios = new Array<Medio>();
+              var destinatarios = new Array<Rol>();
+              var redactor = new Persona();
+              var area = new Area();
+              Object.assign(area, item.area);
+              Object.assign(redactor, item.redactor);
+              item.mediosDePublicacion.forEach((imedio: any) => {
+                console.log(imedio);
+                var medio = new Medio();
+                Object.assign(medio, imedio);
+                medios.push(medio);
+              });
+              item.destinatario.forEach((idest: any) => {
+                console.log(idest);
+                var destinatario = new Rol();
+                Object.assign(destinatario, idest);
+                destinatarios.push(destinatario);
+              });
+
+              anuncio.redactor = redactor;
+              anuncio.area = area;
+              anuncio.destinatario = destinatarios;
+              anuncio.mediosDePublicacion = medios;
+
+              Object.assign(anuncio, item);
+              this.anuncios.push(anuncio);
+            });
+          },
+          (error) => {
+            console.log(error.msg);
+          }
+        );
+      },
+      (error) => {
+        console.log(error.msg);
+      }
+    );
+  }
+
+  confirmarCancelacion() {}
+
+  cancelarAnuncioEnVigencia(anuncio: Anuncio) {}
+
+  //-- METODOS BUSQUEDA AVANZADA
+  capturarTexto(texto: string) {
+    this.anuncios = new Array<Anuncio>();
+    this.anuncioService
+      .getAnunciosBusqueda(texto, this.estado)
+      .subscribe((result) => {
+        result.forEach((item: any) => {
+          var anuncio = new Anuncio();
+          Object.assign(anuncio, item);
           this.anuncios.push(anuncio);
-      
         });
-      },
-      error=>{
-        console.log(error.msg);
-      }
-    )
-      },
-      error=>{
-        console.log(error.msg);
-      }
-    )
+        console.log(this.anuncios);
+      });
   }
-
-  confirmarCancelacion(){
-
+  capturarEstado(estado: string) {
+    this.anuncios = new Array<Anuncio>();
+    this.anuncioService
+      .getAnunciosBusqueda(this.texto, estado)
+      .subscribe((result) => {
+        result.forEach((item: any) => {
+          var anuncio = new Anuncio();
+          Object.assign(anuncio, item);
+          this.anuncios.push(anuncio);
+        });
+        console.log(this.anuncios);
+      });
   }
-
-  cancelarAnuncioEnVigencia(anuncio:Anuncio){
-
+  capturarFechas(fechaI: string, fechaF: string) {
+    this.anuncios = new Array<Anuncio>();
+    this.anuncioService
+      .getAnunciosPorFecha(
+        this.fechaInicial,
+        this.fechaFinal 
+      )
+      .subscribe((result) => {
+        result.forEach((item: any) => {
+          var anuncio = new Anuncio();
+          Object.assign(anuncio, item);
+          this.anuncios.push(anuncio);
+        });
+        console.log(this.anuncios);
+      });
   }
-  ngOnInit(): void {
-  }
-
-
-
+  ngOnInit(): void {}
 }
-
