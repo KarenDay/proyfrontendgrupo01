@@ -118,5 +118,14 @@ export class AnuncioService {
     return this._http.get(this.urlBase+"anuncio/filtro/areaYestado",httpOptions);
   }
 
-
+  public getAnunciosPorRol(idRol:string):Observable<any>{
+    const httpOptions={
+      headers: new HttpHeaders({
+        
+      }),
+      params : new HttpParams()
+      .append("rol",idRol)
+    }
+    return this._http.get(this.urlBase+"anuncio/filtro/rol",httpOptions);
+  }
 }

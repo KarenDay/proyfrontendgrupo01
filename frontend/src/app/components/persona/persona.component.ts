@@ -111,23 +111,27 @@ export class PersonaComponent implements OnInit {
     this.personas= new Array<Persona>();
     this.personaService.busquedaCombinada(this.personaFiltro.legajo,this.personaFiltro.nombre,this.personaFiltro.apellido).subscribe(
       result=>{
-        console.log(result);
-        result.forEach((item:any) => {
-          var roles = new Array<Rol>();
-          var persona = new Persona();
-          var area =  new Area();
-          Object.assign(area,item.area);
-          item.roles.forEach((irol:any) => {
-            var rol = new Rol();
-            Object.assign(rol,irol);
-            roles.push(rol);  
-          });
-          persona.roles= roles;
-          persona.area=area;
-          Object.assign(persona,item);
-          this.personas.push(persona);
-      
-        });
+        if (result.length!=0){
+            console.log(result);
+            result.forEach((item:any) => {
+              var roles = new Array<Rol>();
+              var persona = new Persona();
+              var area =  new Area();
+              Object.assign(area,item.area);
+              item.roles.forEach((irol:any) => {
+                var rol = new Rol();
+                Object.assign(rol,irol);
+                roles.push(rol);  
+              });
+              persona.roles= roles;
+              persona.area=area;
+              Object.assign(persona,item);
+              this.personas.push(persona);
+          
+            });
+          }else{
+            this.cargarPersonas();
+          }
       },
       error=>{
         console.log(error.msg);

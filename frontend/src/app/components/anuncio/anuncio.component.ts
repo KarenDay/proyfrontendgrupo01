@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-//import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Anuncio } from 'src/app/models/anuncio';
 import { Area } from 'src/app/models/area';
 import { Medio } from 'src/app/models/medio';
 import { Persona } from 'src/app/models/persona';
-//import { Recurso } from 'src/app/models/recurso';
 import { Rol } from 'src/app/models/rol';
 import { AnuncioService } from 'src/app/services/anuncio.service';
 import { AreaService } from 'src/app/services/area.service';
@@ -21,15 +20,7 @@ import { RolService } from 'src/app/services/rol.service';
 })
 export class AnuncioComponent implements OnInit {
 
-  mensaje!:string;
-  //archivos!:Array<Recurso>;
-  //codigosQr:Array<string>= new Array<string>();
-  //codigoQr!:string;
-  //texto!:string;
-
- // archivoImg:Recurso= new Recurso();
- // archivoPdf:Recurso= new Recurso();
-  
+  mensaje!:string;  
   archivo:string="";
   archivos:Array<string>= new Array<string>();
   anuncio:Anuncio= new Anuncio();
@@ -39,7 +30,7 @@ export class AnuncioComponent implements OnInit {
   area:Area=new Area();
 
 
-  listaEncargados:Array<Area>= new Array<Area>();
+  listaEncargados:Array<Persona>= new Array<Persona>();
   accion:string="new";
 
   estados:Array<string>= new Array<string>()
@@ -47,20 +38,25 @@ export class AnuncioComponent implements OnInit {
   constructor(private loginService:LoginService,
               private activatedRoute:ActivatedRoute,
               private router:Router,
-              private rolService:RolService,
               private anuncioService:AnuncioService,
               private medioService:MedioService,
-          //    private toast:ToastrService,
+              private toast:ToastrService,
               private areaService:AreaService) { 
-      //this.archivos =new Array<Recurso>();
-      // this.cargarRoles();
-      // this.cargarRedactor();
-      // this.cargarMedios(); 
- 
       this.cargarEstados(); 
   }
 
+  onFileChanges(files:any) {
+    if (files!="" || files !=undefined || files!=null)
+       this.anuncio.tipoContenido = files[0].base64;
+  }
+
+  agregarListaRecursos(recursos:any){
+      this.archivo= recursos[0].base64;
+      console.log(this.archivo);
+  }
+
   agregarRecurso(){
+    console.log(this.archivo);
     this.archivos.push(this.archivo);
     this.archivo="";
   }
@@ -77,30 +73,6 @@ export class AnuncioComponent implements OnInit {
   cargarEstados(){
     this.estados=["EDICION","CONFECCIONADO"];
   }
-  // guardarImagen(){
-  //   this.archivoImg.tipo="IMAGEN";
-    
-  //   this.archivos.push(this.archivoImg);
-  //   console.log(this.archivos);
-  // }
-  // guardarPdf(){
-  //   this.archivoPdf.tipo="PDF";
-   
-  //   this.archivos.push(this.archivoPdf);
-  //   console.log(this.archivos);
-  // }
- 
-  // obtenerRutaImg(ruta:any){
-  //   console.log(ruta);
-  //   this.archivoImg.url= ruta[0].base64;
-  //   console.log(this.archivoImg.url);
-  // }
-
-  // obtenerRutaPdf(ruta:any){
-  //   console.log(ruta);
-  //   this.archivoPdf.url= ruta[0].base64;
-  //   console.log(this.archivoPdf.url);
-  // }
 
   cargarRedactor(){
     this.redactor= new Persona();
@@ -118,20 +90,6 @@ export class AnuncioComponent implements OnInit {
     )
   }
 
-  // cargarRoles(){
-  //   this.roles= new Array<Rol>();
-  //   this.rolService.getRoles().subscribe(
-  //     result=>{
-  //       result.forEach((item : any) => {
-  //         var rol = new Rol();
-  //         Object.assign(rol,item);
-  //         this.roles.push(rol);
-        
-  //       });
-  //     }
-  //   )
-  // }
-
   cargarMedios(){
     this.medios= new Array<Medio>();
     this.medioService.getMedios().subscribe(
@@ -146,38 +104,28 @@ export class AnuncioComponent implements OnInit {
     )
   }
 
-  // async obtenerCodigoQR(url :string){
-  //   //this.codigosQr= new Array<string>();
-  //   this.anuncioService.obtenerCodigoQR(url).subscribe(
-  //     result=>{
-  //         var url = result.codigoqr;
-  //         //this.codigosQr.push(url);
-  //         Object.assign(this.codigoQr,url);
-  //         this.anuncio.recursos= this.codigoQr;
-  //         this.anuncio.redactor= this.redactor;
-  //         this.anuncio.area= this.area;
-  //         this.anuncioService.createAnuncio(this.anuncio).subscribe(
-  //             result=>{
-  //               console.log(result.msg);
-  //             },
-  //             error=>{
-  //               console.log(error.msg);
-  //             }
-  //           )
-  //           }
-  //         )
-  // }
+  enviarCorreoElectronico(){
+      console.log("Correos electronicos");
+      for(let i=0;i<this.listaEncargados.length;i++){
+        console.log(this.listaEncargados[i].email);
+      }
+  }
 
-  /*
   controlEstadoAnuncio(){
     //Controla si el estado es CONFECCIONADO busque a los encargados de su area y los traiga con un service
     if (this.anuncio.estado=="CONFECCIONADO"){
       this.areaService.buscarAreaPorNombre(this.anuncio.area.nombreArea).subscribe(
         result=>{
           result.forEach((item:any) => {
-            Object.assign(this.listaEncargados,item); //Con esta lista se puede obtener los correos electronicos de los encargados
-            console.log("Area donde obtiene los datos de los encargados");
-            console.log(item);
+            item.responsables.forEach((resp:any) => {
+              var responsable= new Persona();
+              Object.assign(responsable,resp); //Con esta lista se puede obtener los correos electronicos de los encargados
+              this.listaEncargados.push(responsable);
+              console.log("Area donde obtiene los datos de los encargados");
+              console.log(responsable);
+                
+            });
+            this.enviarCorreoElectronico(); 
           });
         }
       )
@@ -202,11 +150,11 @@ export class AnuncioComponent implements OnInit {
         }
      )
   }
-*/
+
   actualizarAnuncio(){
     this.anuncioService.updateAnuncio(this.anuncio).subscribe(
       result=>{
-        // this.toast.success(result.msg,"Actualizacion de Anuncio");
+        this.toast.success(result.msg,"Actualizacion de Anuncio");
         this.router.navigate(['mis-anuncios']);
       },
       error=>{
@@ -254,8 +202,6 @@ export class AnuncioComponent implements OnInit {
           this.anuncio.estado= this.estados.find((item)=>(item==this.anuncio.estado))!;
           this.cargarRedactor();
           this.cargarMedios();
-          
-          //this.anuncio.destinatario= this.roles.forEach((item)=>(this.anuncio.destinatario.forEach((dest)=>(dest._id==item._id))))!;
       },
       error=>{
         console.log(error.msg);

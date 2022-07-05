@@ -21,10 +21,10 @@ export class MisAnunciosComponent implements OnInit {
   constructor(private anuncioService:AnuncioService,
               private loginService:LoginService,
               private router:Router) { 
-              //  this.cargarRedactor();
+               this.cargarRedactor();
               
   }
-/*
+
   cargarRedactor(){
     
     this.loginService.personaLoggedIn().subscribe(
@@ -122,7 +122,7 @@ export class MisAnunciosComponent implements OnInit {
     this.router.navigate(["anuncio-form", anuncio._id]);
     
   }
-*/
+
   ngOnInit(): void {
   }
 
