@@ -41,9 +41,9 @@ export class AreaEncargadosComponent implements OnInit {
         }
       )
   }
-  buscarPorDni(){
+  buscarPorDni(dni:number){
     this.personas= new Array<Persona>();
-    this.personaService.getPersonaByDni(this.dni).subscribe(
+    this.personaService.getPersonaByDni(dni).subscribe(
       result=>{
         
         result.forEach((item:any) => {
