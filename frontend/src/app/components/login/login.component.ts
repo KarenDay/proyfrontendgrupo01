@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
          (result) => {
             var user = result;
             if (user.status == 1){
+              
+              //guardamos el tokek localmente
+              sessionStorage.setItem("token", user.token);
+
               //guardamos el user en cookies en el cliente
               sessionStorage.setItem("user", user.username);
               sessionStorage.setItem("userid", user.userid);

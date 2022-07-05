@@ -42,6 +42,9 @@ export class LoginService {
     sessionStorage.removeItem("rol");
     sessionStorage.removeItem("userid");
     sessionStorage.removeItem("idPersona");
+
+    //borro el token almacenado mediante el storage
+    sessionStorage.removeItem("token");
   } 
   
   public userLoggedIn(){
@@ -94,6 +97,15 @@ export class LoginService {
     }
     console.log(persona.dni);
     return this._http.get(this.hostBase+"filtro/persona",httpOptions);
+  }
+
+
+  getToken():string{
+    if (sessionStorage.getItem("token")!= null){
+      return sessionStorage.getItem("token")!;
+    }else{
+      return "";
+    }
   }
   
 }
