@@ -20,27 +20,22 @@
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Siguiente</span>
                 </button>
-            </div>
-             
+            </div> 
             </div>
             <div class="row">
               <div class="col-md-8 col-sm-12 border-primary">
                   <h2 style="color:rgb(255, 255, 255); font-family: Arial, Helvetica, sans-serif;">{{anuncio.textoAnuncio}}</h2>
-              
               </div>
               <div class="col-md-4 col-sm-12 border-primary">
-                  <h3 style="font-family: cursive; color: azure;">Mas informacion</h3>
+                  <h3 style="font-family: cursive; color: azure;">Mas información</h3>
                   <div class="mb-3">
-                    <!-- (qrCodeURL)="onChangeURL($event)" -->
                     <qrcode  [qrdata]="myAngularxQrCode" (qrCodeURL)="onChangeURL($event)" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-                    <a [href]="qrCodeDownloadLink" download="qrcode">Download</a>
+                    <a [href]="qrCodeDownloadLink" download="qrcode" style="font-family: cursive; color: azure;">Descargar Código</a>
                   </div> 
-                  <!-- <img style="width: 50%;padding: 2%;"  [src]="anuncio.recursos"> -->
               </div>
           </div>
-             
         </div>    
      </div>
     </div>
-  </div>
+</div>
   

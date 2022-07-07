@@ -10,7 +10,8 @@
           <p>{{mensaje}}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success botones" data-bs-dismiss="modal" (click)="guardarAnuncio(anuncioForm)" >Aceptar</button>
+          <button *ngIf="accion=='new'" type="button" class="btn btn-success botones" data-bs-dismiss="modal" (click)="guardarAnuncio(anuncioForm)" >Aceptar</button>
+          <button *ngIf="accion=='update'" type="button" class="btn btn-success botones" data-bs-dismiss="modal" (click)="actualizarAnuncio(anuncioForm)" >Actualizar</button>
         </div>
       </div>
     </div>
@@ -39,34 +40,9 @@
                           <h5 class="card-header titulo text-center"> CREAR ANUNCIO</h5>                               
                           <div class="card-body align-content-center fondo letra " >
                               <div class="row">    
-                                      <!-- <div class="col-12 col-md-6 col-sm-12"  > -->
-                                          <!-- <div class="mb-3">
-                                            <label for="recursosImg">Recursos(Imagen)</label>
-                                            <input type="file" alife-file-to-base64 multiple (onFileChanged)="obtenerRutaImg($event)" accept="image/x-png,image/gif,image/jpeg"
-                                                   class="form-control"  id="recursosImg" name="recursosImg" [disabled]="accion=='update'">
-                                            <button class="btn btn-outline-success" type="button" (click)="guardarImagen()" [disabled] ="accion=='update'">Guardar Imagen</button>
-                                          </div> -->
-                                          <!-- <div class="mb-3">
-                                            <label for="recursosPdf">Recursos(PDF)</label>
-                                            <input type="file"  alife-file-to-base64 multiple (onFileChanged)="obtenerRutaPdf($event)" accept="file/Pdf,file/PDF"
-                                                   class="form-control" id="recursosPdf" name="recursos" [disabled]="accion=='update'">
-                                            <button class="btn btn-outline-success" type="button" (click)="guardarPdf()" [disabled] ="accion=='update'" >Guardar Pdf</button>
-                                          </div> -->
-                                         
-                                          
-                                      <!-- </div> -->
                                       <!-- FORMULARIO -->
                                       <div class="col-12 col-sm-12" >
                                         <form #anuncioForm="ngForm">
-                                          <!-- datos del redactor no se puede cambiar  -->
-                                          <!-- <div class=" mb-3 ">
-                                            <label for="redactor" class="form-label ">Redactor</label>
-                                            <input type="text" class="form-control" id="redactor" name="redactor" [(ngModel)]="redactor.nombre" disabled> 
-                                          </div>
-                                          <div class=" mb-3 ">
-                                            <label for="area" class="form-label ">Area a publicar</label>
-                                            <input type="text" class="form-control" id="area" name="area" [(ngModel)]="area.nombreArea" disabled> 
-                                          </div> -->
                                           <!-- texto para el anuncio -->
                                           <div class=" mb-3 ">
                                               <label for="texto" class="form-label">Texto de Anuncio</label>
@@ -97,8 +73,6 @@
                                             <select class="form-select" id="estado" name="estado" 
                                               [(ngModel)]="anuncio.estado" required #estado="ngModel">
                                               <option value=""selected disabled>Seleccionar</option>
-                                              <!-- <option value="EDICION">EDICION</option>
-                                              <option value="CONFECCIONADO">CONFECCIONADO</option> -->
                                               <option [ngValue]="e" *ngFor="let e of estados">{{e}}</option>
                                             </select>
                                             <div *ngIf="estado.invalid && (estado.dirty || estado.touched)"
@@ -110,20 +84,6 @@
                                           </div>
                                           <!-- DESTINATARIOS  -->
                                           <div class="mb-3">
-                                            <!-- <label for="rol">Rol Destinado</label>
-                                            <select class="form-select" id="rol" name="rol" 
-                                            [(ngModel)]="anuncio.destinatario" required #rol="ngModel">
-                                              <option selected disabled>Seleccionar</option>
-                                              <option [ngValue]="r"  *ngFor="let r of roles">
-                                                {{r.nombreRol}}
-                                              </option>
-                                            </select>
-                                            <div *ngIf="rol.invalid && (rol.dirty || rol.touched)"
-                                                  class="alert alert-danger">
-                                                  <div *ngIf="rol.errors?.['required']">
-                                                    Debe seleccionar un Rol.
-                                                  </div>
-                                            </div> -->
                                             <label for="rolM" class="form-label select-label" >Rol Destinado</label>
                                             <select [disabled]="accion=='update'"  multiple class="form-select" size="3" id="rolM" name="rolM" [(ngModel)]="anuncio.destinatario" 
                                                     required #rolM="ngModel" >
@@ -150,23 +110,7 @@
                                                 
                                           </div>
                                           <!--destino (Medio de Publicacion)  -->
-                                          <div class="mb-3">
-                                            <!-- <label for="medio">Destino</label>
-                                            <select class="form-select" id="medio" name="medio" 
-                                            [(ngModel)]="anuncio.mediosDePublicacion" required #medio="ngModel">
-                                              <option selected disabled>Seleccionar</option>
-                                              <option [ngValue]="m"  *ngFor="let m of medios">
-                                                {{m.nombreMedio}}
-                                              </option>
-                                            </select>
-                      
-                                            <div *ngIf="medio.invalid && (medio.dirty || medio.touched)"
-                                                  class="alert alert-danger">
-                                                  <div *ngIf="medio.errors?.['required']">
-                                                    Debe seleccionar un Medio.
-                                                  </div>
-                                            </div>  -->
-                                        
+                                          <div class="mb-3">                                        
                                             <label for="medios" class="form-label select-label" >Medios de publicacion</label>
                                             <select multiple [disabled]="accion=='update'"  class="form-select" size="3" id="medios" name="medios" [(ngModel)]="anuncio.mediosDePublicacion"
                                                     required #medio="ngModel"  > 
@@ -198,29 +142,20 @@
                                                 <input id="recursos" [disabled]="accion=='update'" name="recursos" type="file" 
                                                  alife-file-to-base64 multiple accept="image/x-png,image/gif,image/jpeg"
                                                   required class="form-control" (onFileChanged)="agregarListaRecursos($event)">
-                                                <!-- <input type="text" class="form-control" id="recursos" name="recursos" [disabled]="accion=='update'" [(ngModel)]="archivo" 
-                                                       placeholder="Ingrese Url de los recursos extras para su anuncio"> -->
                                               </div>
                                               <div class="col-4">  
-                                                <button class="btn btn-outline-dark" type="button"  [disabled]="accion=='update'"  (click)="agregarRecurso()" >Agregar recurso</button>
+                                                <button class="btn btn-outline-dark" type="button" [disabled]="archivo==''"  
+                                                (click)="agregarRecurso()">Agregar recurso</button>
                                               </div>
-                                            </form>
-                                           
-                                           
+                                            </form>  
                                           </div >
-                                          <!--  -->
-                                          <!-- <div class="mb-3">
-                                            <qrcode (qrCodeURL)="onChangeURL($event)" [qrdata]="myAngularxQrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-                                            <a [href]="qrCodeDownloadLink" download="qrcode">Download</a>
-                                          </div> -->
                                           <div class="d-flex justify-content-center">
-                                            <button *ngIf="accion=='new'" type="button" class="btn btn-primary botones " (click)="confirmarRegistro()"
-                                            data-bs-toggle="modal" data-bs-target="#ventanaConfirmacion"
-                                                [disabled]="!anuncioForm.form.valid">REGISTRAR ANUNCIO</button>
-                                            <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" (click)="actualizarAnuncio()" 
-                                                >ACTUALIZAR</button>
-                                          </div>
-                                                                                               
+                                            <button *ngIf="accion=='new'" type="button" class="btn btn-primary botones " (click)="confirmarAnuncio()"
+                                                      data-bs-toggle="modal" data-bs-target="#ventanaConfirmacion"
+                                                    [disabled]="!anuncioForm.form.valid">REGISTRAR ANUNCIO</button>
+                                            <button *ngIf="accion=='update'" type="button" class="btn btn-primary botones" (click)="confirmarActualizacion()" 
+                                                      data-bs-toggle="modal" data-bs-target="#ventanaConfirmacion" >ACTUALIZAR</button>
+                                          </div>                                                    
                                           </form>
                                     </div>
 
@@ -241,10 +176,8 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let a of archivos">
-                                  <!-- <td>{{a}}</td> -->
                                   <td>
                                     <img src="{{a}}" class="img-fluid" alt="recursos para el anuncio" style="height:100px ;">
-                                    
                                   </td>
                                   <td>
                                     <button [disabled]="accion=='update'" type="button" class="btn btn-btn bg-danger btnAcciones" (click)="quitarRecurso(a)" >

@@ -15,6 +15,22 @@
           </div>
         </div>
     </div>
+    <div class="modal " id="ventanaConfirmacion" tabindex="-1" role="dialog">
+      <div class="modal-dialog" >
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title">Ventana de confirmación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{mensaje}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success botones" data-bs-dismiss="modal" (click)="confirmarAutorizacion()">Aceptar</button>
+          </div>
+        </div>
+      </div>
+  </div>
     <div class="row">
         <div class="card col-10 offset-1 tabla mt-5 mb-5">   
                 <div class="table-wrapper mt-5 ">
@@ -34,9 +50,9 @@
                                 <thead class="titulo p-5">
                                   <tr class="text-center" >
                                    
-                                    <th scope="col" class="text-center">ANUNCIO</th>
-                                    <th scope="col" class="text-center">ESTADO</th>
-                                    <th scope="col" class="text-center">TEXTO</th>
+                                    <th scope="col" class="text-center" >ANUNCIO</th>
+                                    <th scope="col" class="text-center" >ESTADO</th>
+                                    <th scope="col" class="text-center" style="width: 250px;">TEXTO</th>
                                     <th scope="col" class="text-center">MEDIO DONDE SE PUBLICA</th>
                                     <th scope="col" class="text-center">DESTINADO A</th>
                                     <th scope="col" class="text-center">REDACTOR</th>
@@ -45,9 +61,26 @@
                                 </thead>
                                 <tbody>
                                   <tr *ngFor="let a of anuncios">
-                                    <td><img [src]="a.tipoContenido" style="height: 200px;" class="img-fluid" alt="Responsive image"></td>
+                                    <td><img [src]="a.tipoContenido" style="height:auto; width: auto;" class="img-fluid" alt="Responsive image"></td>
                                     <td>{{a.estado}}</td>
-                                    <td>{{a.textoAnuncio}}</td>
+                                    <td>
+                                      <div class="accordion" >
+                                        <div class="accordion-item">
+                                          <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+a._id"
+                                            aria-expanded="false" [attr.aria-controls]="'collapse'+a._id">
+                                            VER
+                                            </button>
+                                          </h2>
+                                          <div [id]="'collapse'+a._id" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                              <p >{{a.textoAnuncio}}</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </td>
                                     <td >
                                         <label *ngFor="let m of a.mediosDePublicacion">{{m.nombreMedio}}</label>
                                     </td>
@@ -59,11 +92,12 @@
                                         <div class="row">
                                             <div class=" col-5 vstack gap-2  mx-auto me-1 ">
                                                 <div class=" d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-btn bg-success me-2 btnAcciones text-white" (click)="autorizarAnuncio(a)" >
+                                                    <button type="button" class="btn btn-btn bg-success me-2 text-white btnAcciones "
+                                                        data-bs-toggle="modal" data-bs-target="#ventanaConfirmacion" (click)="autorizarAnuncio(a)" >
                                                         <i class="bi bi-check-circle-fill"></i> Autorizar
                                                     </button>
                                                     <button type="button" class="btn btn-btn bg-danger btnAcciones text-white"
-                                                            data-bs-toggle="modal" data-bs-target="#ventanaEliminar " (click)="cancelarAnuncio(a)" >
+                                                            data-bs-toggle="modal" data-bs-target="#ventanaEliminar" (click)="cancelarAnuncio(a)" >
                                                             <i class="bi bi-x-circle-fill"></i> Cancelar
                                                     </button>
                                                 </div>

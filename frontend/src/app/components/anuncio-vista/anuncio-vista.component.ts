@@ -12,6 +12,7 @@ import { RolService } from 'src/app/services/rol.service';
   styleUrls: ['./anuncio-vista.component.css']
 })
 export class AnuncioVistaComponent implements OnInit {
+  
   indice! :number;
   anuncios:Array<Anuncio>= new Array<Anuncio>();
   anuncio:Anuncio=new Anuncio();
@@ -31,21 +32,21 @@ export class AnuncioVistaComponent implements OnInit {
                }
 
   ngOnInit(): void {
+
   }
   
   buscarAnunciosPorRol(){
     this.rolService.buscarRolPorNombre(this.rol).subscribe(
       result=>{
         result.forEach((item:any) => {
-          console.log(item);
           this.anuncioService.getAnunciosPorRol(item._id).subscribe(
             result=>{
               console.log(result);
-            result.forEach((item:any) => {
-            var anuncio = new Anuncio();             
-            Object.assign(anuncio,item);
-            this.anuncios.push(anuncio);
-            this.iniciar();
+              result.forEach((item:any) => {
+              var anuncio = new Anuncio();             
+              Object.assign(anuncio,item);
+              this.anuncios.push(anuncio);
+              this.iniciar();
             });
           },
           error=>{
@@ -53,8 +54,6 @@ export class AnuncioVistaComponent implements OnInit {
           }
         )
         });
-      
-        
       },
       error=>{
         console.log(error.msg);
@@ -65,16 +64,11 @@ export class AnuncioVistaComponent implements OnInit {
   }
 
   controlarLogin(){
-    if (this.loginService.userLoggedIn()==true){
+    if (this.loginService.userLoggedIn()==true)
       this.rol= sessionStorage.getItem("rol")!;
-      console.log(this.rol);
-      this.buscarAnunciosPorRol();
-    }
-    else{
+    else
       this.rol="PACIENTE";
-      this.buscarAnunciosPorRol();
-    }
-       
+    this.buscarAnunciosPorRol();
   }
 
   onChangeURL(url: SafeUrl) {

@@ -36,7 +36,6 @@ export class AnuncioService {
     let body = JSON.stringify(anuncio);
     console.log('Enviado al backend: ');
     console.log(anuncio);
-
     return this._http.post(this.urlBase + 'anuncio/', body, httpOptions);
   }
 

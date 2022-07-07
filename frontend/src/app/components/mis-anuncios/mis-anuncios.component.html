@@ -21,7 +21,7 @@
                                    
                                     <th scope="col" class="text-center">ANUNCIO</th>
                                     <th scope="col" class="text-center">ESTADO</th>
-                                    <th scope="col" class="text-center">TEXTO</th>
+                                    <th scope="col" class="text-center" style="width: 250px;">TEXTO</th>
                                     <th scope="col" class="text-center">MEDIO DONDE SE PUBLICA</th>
                                     <th scope="col" class="text-center">DESTINADO A</th>
                                     <th scope="col" class="text-center">REDACTOR</th>
@@ -30,11 +30,28 @@
                                 </thead>
                                 <tbody>
                                   <tr *ngFor="let a of anuncios">
-                                    <td><img [src]="a.tipoContenido" style="height: 200px;" class="img-fluid" alt="Responsive image"></td>
+                                    <td><img [src]="a.tipoContenido" style="height: auto;" class="img-fluid" alt="Responsive image"></td>
                                     <td>{{a.estado}}</td>
-                                    <td>{{a.textoAnuncio}}</td>
+                                    <td>
+                                        <div class="accordion" >
+                                            <div class="accordion-item">
+                                              <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+a._id"
+                                                aria-expanded="false" [attr.aria-controls]="'collapse'+a._id">
+                                                VER
+                                                </button>
+                                              </h2>
+                                              <div [id]="'collapse'+a._id" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                  <p >{{a.textoAnuncio}}</p>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                    </td>
                                     <td >
-                                        <label *ngFor="let m of a.mediosDePublicacion">{{m.nombreMedio}}, </label>
+                                        <label *ngFor="let m of a.mediosDePublicacion">{{m.nombreMedio}} </label>
                                     </td>
                                     <td>
                                         <label *ngFor="let d of a.destinatario">{{d.nombreRol}}, </label>
@@ -46,13 +63,7 @@
                                                 <div class=" d-flex justify-content-center">
                                                     <button type="button" class="btn btn-btn bg-warning me-2 btnAcciones" (click)="modificarAnuncio(a)" >
                                                         <i class="bi bi-pencil "></i>
-                                                    </button>
-                                                    
-                                                    <!-- <button type="button" class="btn btn-btn bg-danger btnAcciones"
-                                                    data-bs-toggle="modal" data-bs-target="#ventanaEliminar " (click)="eliminarPersona(p)" >
-                                                        <i class="bi bi-trash3"></i>
-                                                    </button> -->
-                                                   
+                                                    </button>                                                  
                                                 </div>
                                             </div>
                                         </div>   

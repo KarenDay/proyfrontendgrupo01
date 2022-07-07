@@ -9,9 +9,9 @@ import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
 import { AnuncioService } from 'src/app/services/anuncio.service';
 import { AreaService } from 'src/app/services/area.service';
+import { CorreoService } from 'src/app/services/correo.service';
 import { LoginService } from 'src/app/services/login.service';
 import { MedioService } from 'src/app/services/medio.service';
-import { RolService } from 'src/app/services/rol.service';
 
 @Component({
   selector: 'app-anuncio',
@@ -30,6 +30,9 @@ export class AnuncioComponent implements OnInit {
   area:Area=new Area();
 
 
+  mensajeCorreo!:string;
+  asuntoCorreo!:string;
+  email:string="";
   listaEncargados:Array<Persona>= new Array<Persona>();
   accion:string="new";
 
@@ -41,35 +44,31 @@ export class AnuncioComponent implements OnInit {
               private anuncioService:AnuncioService,
               private medioService:MedioService,
               private toast:ToastrService,
-              private areaService:AreaService) { 
+              private areaService:AreaService,
+              private correoService:CorreoService) { 
       this.cargarEstados(); 
   }
 
-  onFileChanges(files:any) {
-    if (files!="" || files !=undefined || files!=null)
-       this.anuncio.tipoContenido = files[0].base64;
-  }
-
   agregarListaRecursos(recursos:any){
+    if (recursos!="" || recursos !=undefined || recursos!=null){
       this.archivo= recursos[0].base64;
-      console.log(this.archivo);
+    } 
   }
 
   agregarRecurso(){
-    console.log(this.archivo);
     this.archivos.push(this.archivo);
     this.archivo="";
   }
 
   quitarRecurso(a:string){
     var tam= this.archivos.length;
-    for( var i = 0; i < tam; i++){ 
-                                   
+    for( var i = 0; i < tam; i++){                            
       if ( this.archivos[i] == a) { 
           this.archivos.splice(i, 1); 
       }
     }
   }
+
   cargarEstados(){
     this.estados=["EDICION","CONFECCIONADO"];
   }
@@ -82,7 +81,7 @@ export class AnuncioComponent implements OnInit {
         Object.assign(this.area,this.redactor.area);
         Object.assign(this.roles,this.redactor.roles);
         console.log(this.area);
-      
+        this.cargarMedios();
       },
       error=>{
         console.log(error.msg);
@@ -97,40 +96,16 @@ export class AnuncioComponent implements OnInit {
         result.forEach((item:any) => {
           var medio = new Medio();
           Object.assign(medio,item);
-          this.medios.push(medio);
-          
+          this.medios.push(medio); 
         });
       }
     )
   }
 
-  enviarCorreoElectronico(){
-      console.log("Correos electronicos");
-      for(let i=0;i<this.listaEncargados.length;i++){
-        console.log(this.listaEncargados[i].email);
-      }
+  confirmarAnuncio(){
+    this.mensaje="Desea registrar el anuncio?";
   }
 
-  controlEstadoAnuncio(){
-    //Controla si el estado es CONFECCIONADO busque a los encargados de su area y los traiga con un service
-    if (this.anuncio.estado=="CONFECCIONADO"){
-      this.areaService.buscarAreaPorNombre(this.anuncio.area.nombreArea).subscribe(
-        result=>{
-          result.forEach((item:any) => {
-            item.responsables.forEach((resp:any) => {
-              var responsable= new Persona();
-              Object.assign(responsable,resp); //Con esta lista se puede obtener los correos electronicos de los encargados
-              this.listaEncargados.push(responsable);
-              console.log("Area donde obtiene los datos de los encargados");
-              console.log(responsable);
-                
-            });
-            this.enviarCorreoElectronico(); 
-          });
-        }
-      )
-    }
-  }
   guardarAnuncio(anuncioForm:NgForm){
      console.log(this.anuncio);
      this.anuncio.recursos= this.archivos;
@@ -151,10 +126,51 @@ export class AnuncioComponent implements OnInit {
      )
   }
 
-  actualizarAnuncio(){
+  /**
+   * Controla si el estado es CONFECCIONADO busque a los encargados de su area
+   */
+  controlEstadoAnuncio(){
+    if (this.anuncio.estado=="CONFECCIONADO"){
+      this.areaService.buscarAreaPorNombre(this.anuncio.area.nombreArea).subscribe(
+        result=>{
+          result.forEach((item:any) => {
+            item.responsables.forEach((resp:any) => {
+              var responsable= new Persona();
+              Object.assign(responsable,resp); // lista de encargados: obtenemos los email
+              this.listaEncargados.push(responsable);                
+            });
+            this.enviarCorreoElectronico(); 
+          });
+        }
+      )
+    }
+  }
+
+  enviarCorreoElectronico(){
+    for(let i=0;i<this.listaEncargados.length;i++){
+      this.mensajeCorreo="Una persona de su area a confeccionado un anuncio";
+      this.asuntoCorreo="Aviso de autorización de anuncio";
+      this.email=this.listaEncargados[i].email;
+      console.log(this.listaEncargados[i].email);
+      this.correoService.enviarCorreo(this.email,this.asuntoCorreo,this.mensajeCorreo).subscribe(
+        result=>{
+
+          this.toast.success("Se han enviado correos a los encargados de su Area para autorizar su anuncio","Aviso a Encargados");
+        },
+        error=>{
+          this.toast.error(error.msg,"Error al enviar correo");
+        }
+      )
+    }
+  }
+
+  confirmarActualizacion(){
+    this.mensaje="Realmente desea actualizar el anuncio?";
+  }
+  actualizarAnuncio(anuncioForm:NgForm){
     this.anuncioService.updateAnuncio(this.anuncio).subscribe(
       result=>{
-        this.toast.success(result.msg,"Actualizacion de Anuncio");
+        this.controlEstadoAnuncio(); //Este metodo controla si el estado es CONFECCIONADO envie un email al encargado
         this.router.navigate(['mis-anuncios']);
       },
       error=>{
@@ -162,46 +178,36 @@ export class AnuncioComponent implements OnInit {
       }
     )
   }
-  confirmarRegistro(){
-    this.mensaje="Desea registrar el anuncio?";
-  }
 
   cargarAnuncio(id:string){
     this.anuncio= new Anuncio();
     this.anuncioService.getAnuncio(id).subscribe(
       result=>{
-        console.log("entro");
         console.log(result);
-          var anuncio = new Anuncio();
           var medios = new Array<Medio>();
           var destinatarios = new Array<Rol>();
           var redactor = new Persona();
           var area =  new Area();
-          var recursos = new Array<string>();
           Object.assign(area,result.area);
           Object.assign(redactor,result.redactor);
           result.mediosDePublicacion.forEach((imedio:any) => {
-            console.log(imedio);
             var medio = new Medio();
             Object.assign(medio,imedio);
             medios.push(medio);  
           });
           result.destinatario.forEach((idest:any) => {
-            console.log(idest);
             var destinatario = new Rol();
             Object.assign(destinatario,idest);
             destinatarios.push(destinatario);  
           });
-          anuncio.redactor= redactor;
-          anuncio.area=area;
-          anuncio.destinatario= destinatarios;
-          anuncio.mediosDePublicacion=medios;
-          Object.assign(anuncio,result);  
-          Object.assign(this.anuncio,anuncio);
+          this.anuncio.redactor= redactor;
+          this.anuncio.area=area;
+          this.anuncio.destinatario= destinatarios;
+          this.anuncio.mediosDePublicacion=medios;
+          Object.assign(this.anuncio,result);  
           Object.assign(this.archivos,result.recursos); 
           this.anuncio.estado= this.estados.find((item)=>(item==this.anuncio.estado))!;
-          this.cargarRedactor();
-          this.cargarMedios();
+          this.cargarRedactor(); 
       },
       error=>{
         console.log(error.msg);
@@ -214,13 +220,10 @@ export class AnuncioComponent implements OnInit {
       if (params['id'] == "0"){
         this.accion = "new";  
         this.cargarRedactor();
-       // this.cargarRoles();
-        this.cargarMedios();
       }else{
-        console.log("entro update");
         this.accion = "update";
         this.cargarAnuncio(params['id']);
       }
-  });
+    });
   }  
 }
