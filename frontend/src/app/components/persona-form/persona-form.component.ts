@@ -100,7 +100,6 @@ export class PersonaFormComponent implements OnInit {
     this.persona.dni = dni;
     this.personaService.createPersona(this.persona).subscribe(
       (result) => {
-        //this.router.navigate(['persona']);
         if (result.status == '1') {
           this.toastr.success(
             'Se agrego una persona correctamente',
@@ -128,15 +127,7 @@ export class PersonaFormComponent implements OnInit {
     this.personaService.updatePersona(this.persona).subscribe(
       (result) => {
         this.router.navigate(['persona']);
-        // if(result.status=="1"){
-        //   this.toastr.success("Se actualizaron los datos correctamente", "Gestion de Personas");
-        //   personaForm.reset();
-        //   this.persona.roles=new Array<Rol>();
-        // }
-        // if(result.status=="2"){
-        //   this.toastr.error(result.msg,"Error");
-        //   this.persona.dni="";
-        // }
+        this.toastr.success("Se actualizaron los datos correctamente", "Gestion de Personas"); 
       },
       (error) => {
         this.toastr.error(error.msg, 'Error');

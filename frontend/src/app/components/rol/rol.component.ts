@@ -34,19 +34,17 @@ export class RolComponent implements OnInit {
     this.roles= new Array<Rol>();
     this.rolService.getRoles().subscribe(
       result=>{
+        console.log(result);
         result.forEach((item:any) => {
-          console.log(item);
           var personas = new Array<Persona>();
           var rol = new Rol();
-          item.personas.forEach((ipers:any) => {
-            
+          item.personas.forEach((ipers:any) => { 
             var persona = new Persona();
             Object.assign(persona,ipers);
             personas.push(persona);  
           });
           rol.personas= personas;
           Object.assign(rol,item);
-          
           this.roles.push(rol);
         });
       },
@@ -71,13 +69,9 @@ export class RolComponent implements OnInit {
           this.toast.success("El rol se registro exitosamente","Gestion de Roles");
           rolForm.reset;
           this.cargarRoles();
-        }
-          
+        }  
         if(result.status=="2")
           this.toast.error(result.msg,"Gestion de Roles");
-        
-        //console.log(result.msg);
-        
       },
       error=>{
         console.log(error.msg);
@@ -99,10 +93,10 @@ export class RolComponent implements OnInit {
           this.toast.success("El rol fué modificado exitosamente","Gestion de Roles");
         if(result.status=="2")
         this.toast.error(result.msg,"Gestion de Roles");
-       this.cargarRoles();
+        this.cargarRoles();
       },
       error=>{
-        alert(error.msg);
+        console.log(error.msg);
       }
     )
   }
@@ -117,7 +111,6 @@ export class RolComponent implements OnInit {
       result=>{
         if(result.status="1")
         console.log(result.msg);
-        //alert(result.msg);
         this.toast.success("El rol fué eliminado exitosamente","Gestión de Roles");
         this.cargarRoles();
       },
@@ -130,26 +123,24 @@ export class RolComponent implements OnInit {
 
   buscarRol(nombreRol:string){
     this.roles= new Array<Rol>();
-    // this.rolService.buscarRolPorNombre(nombreRol).subscribe(
-    //   result=>{
-    //     result.forEach((item:any) => {
-      
-    //       var personas = new Array<Persona>();
-    //       var rol = new Rol();
-    //       item.personas.forEach((ipers:any) => {
-            
-    //         var persona = new Persona();
-    //         Object.assign(persona,ipers);
-    //         personas.push(persona);  
-    //       });
-    //       rol.personas= personas;
-    //       Object.assign(rol,item);
-    //       this.roles.push(rol);
-    //     });
-    //   },
-    //   error=>{
-    //     console.log(error.msg);
-    //   }
-    // )
+    this.rolService.buscarRolPorNombre(nombreRol).subscribe(
+      result=>{
+        result.forEach((item:any) => {
+          var personas = new Array<Persona>();
+          var rol = new Rol();
+          item.personas.forEach((ipers:any) => {
+            var persona = new Persona();
+            Object.assign(persona,ipers);
+            personas.push(persona);  
+          });
+          rol.personas= personas;
+          Object.assign(rol,item);
+          this.roles.push(rol);
+        });
+      },
+      error=>{
+        console.log(error.msg);
+      }
+    )
   }
 }

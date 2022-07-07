@@ -1,6 +1,5 @@
 <div class="container-fluid ">
-    <!--modal para eliminar persona  -->
-    <div class="modal " id="ventanaEliminar" tabindex="-1" role="dialog">
+    <div class="modal " id="ventanaCancelar" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
@@ -12,7 +11,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger botones" data-bs-dismiss="modal"
-                        (click)="confirmarCancelacion()">Aceptar</button>
+                        (click)="cancelarAnuncioEnVigencia()">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -25,7 +24,6 @@
                     <div class="card m-3 ">
                         <h5 class="card-header titulo">FILTROS</h5>
                         <div class="card-body align-content-center">
-
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingThree">
@@ -82,46 +80,12 @@
                                                      >
                                                 </div>
                                                 
-
-                                                <!-- <div class="col-auto">
-                                              <label for="apellido" class="visually-hidden">Apellido</label>
-                                              <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido"
-                                              >
-                                            </div> -->
-
                                                 <div class="col-auto">
                                                     <button type="submit" class="btn btn-primary mb-3">BUSCAR</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <!--  -->
-
-                                    <!-- <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                          <form class="row g-3">
-                                            <div class="col-auto">
-                                              <label for="legajo" class="visually-hidden">Legajo</label>
-                                              <input type="text"  class="form-control" id="legajo" placeholder="Legajo" name="legajo"
-                                            [(ngModel)]="personaFiltro.legajo">
-                                            </div>
-                                            <div class="col-auto">
-                                              <label for="nombre" class="visually-hidden">Nombre</label>
-                                              <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre"
-                                              [(ngModel)]="personaFiltro.nombre">
-                                            </div>
-                                            <div class="col-auto">
-                                              <label for="apellido" class="visually-hidden">Apellido</label>
-                                              <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido"
-                                              [(ngModel)]="personaFiltro.apellido">
-                                            </div>
-                                            <div class="col-auto">
-                                              
-                                              <button type="submit" class="btn btn-primary mb-3" (click)="filtrarPersonas()">BUSCAR</button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div> -->
                                 </div>
                             </div>
                         </div>
@@ -153,7 +117,7 @@
                                 <tr class="text-center">
                                     <th scope="col" class="text-center">ANUNCIO</th>
                                     <th scope="col" class="text-center">ESTADO</th>
-                                    <th scope="col" class="text-center">TEXTO</th>
+                                    <th scope="col" class="text-center" style="width: 200px;">TEXTO</th>
                                     <th scope="col" class="text-center">MEDIOS DONDE SE PUBLICA</th>
                                     <th scope="col" class="text-center">DESTINADO A</th>
                                     <th scope="col" class="text-center">REDACTOR</th>
@@ -163,27 +127,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let a of anuncios | filter:searchRol | filter:searchRedactor">
-                                    <td><img [src]="a.tipoContenido" style="height: 200px;" class="img-fluid"
-                                            alt="Responsive image"></td>
+                                <tr *ngFor="let a of anuncios | filter:searchRol | filter:searchRedactor ">
+                                    <td class="w-25">
+                                        <img [src]="a.tipoContenido" style="height: auto;" class="img-fluid img-thumbnail" 
+                                            alt="Responsive image">
+                                    </td>
                                     <td>{{a.estado}}</td>
-                                    <td>{{a.textoAnuncio}}</td>
                                     <td>
-                                        <label *ngFor="let m of a.mediosDePublicacion">{{m.nombreMedio}}</label>
+                                        <div class="accordion" >
+                                            <div class="accordion-item">
+                                              <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+a._id"
+                                                aria-expanded="false" [attr.aria-controls]="'collapse'+a._id">
+                                                VER
+                                                </button>
+                                              </h2>
+                                              <div [id]="'collapse'+a._id" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                  <p >{{a.textoAnuncio}}</p>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                    </td>
+                                    <td>
+                                        <label *ngFor="let m of a.mediosDePublicacion ">{{m.nombreMedio}}</label>
                                     </td>
                                     <td>
                                         <label *ngFor="let d of a.destinatario">{{d.nombreRol}}</label>
                                     </td>
                                     <td>{{a.redactor.nombre}},{{a.redactor.apellido}}</td>
                                     <td
-                                        *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()==='ENCARGADO' && a.estado===mostrarParaEstado ">
+                                        *ngIf="loginService.userLoggedIn() && loginService.userRolLoggedIn()==='ENCARGADO' && a.estado===mostrarParaEstado">
                                         <div class="row">
                                             <div class=" col-5 vstack gap-2  mx-auto me-1 ">
                                                 <div class=" d-flex justify-content-center">
                                                     <button type="button"
                                                         class="btn btn-btn bg-danger btnAcciones text-white"
-                                                        data-bs-toggle="modal" data-bs-target="#ventanaEliminar "
-                                                        (click)="cancelarAnuncioEnVigencia(a)">
+                                                        data-bs-toggle="modal" data-bs-target="#ventanaCancelar"
+                                                        (click)="confirmarCancelacion(a)">
                                                         <i class="bi bi-x-circle-fill"></i> Cancelar
                                                     </button>
                                                 </div>

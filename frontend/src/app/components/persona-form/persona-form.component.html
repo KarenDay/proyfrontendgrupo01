@@ -96,15 +96,15 @@
                 </div>
                 <div class="mb-3">
                   <label for="nombreRol">Rol</label>
-                  <select class="form-select" id="nombreRol" name="nombreRol" 
+                  <select class="form-control form-select" id="nombreRol" name="nombreRol" 
                   [(ngModel)]="rolSeleccionado" required #nombreRol="ngModel">
-                    <option value=""selected disabled>
-                      Seleccionar
-                    </option>
-                    <option *ngFor="let r of persona.roles" [ngValue]="r">
+                    <option *ngFor="let r of persona.roles" [ngValue]="r" >
                        {{r.nombreRol}}
                     </option>
                   </select>
+                  <div [hidden]="nombreRol.valid || nombreRol.pristine" class="alert alert-danger">
+                    Debe seleccionar un rol.
+                    </div>                   
                   <div *ngIf="nombreRol.invalid && (nombreRol.dirty || nombreRol.touched)"
                         class="alert alert-danger">
                         <div *ngIf="nombreRol.errors?.['required']">
@@ -217,40 +217,7 @@
                   </div> 
                     <!-- SECCION PARA ROL Y USUARIO -->
                     <div *ngIf="accion=='update'" class="accordion accordion-flush" id="accordionFlushExample">
-                        <!--ACORDION PARA AGREGAR Y MODIFICAR USUARIO  -->
-                        <div class="accordion-item">
-                          <h2 class="accordion-header" id="accordionUsuario">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
-                            data-bs-target="#colapseUsuario" aria-expanded="false" aria-controls="colapseUsuario">
-                              USUARIO
-                            </button>
-                          </h2>
-                          <div id="colapseUsuario" class="accordion-collapse collapse" aria-labelledby="accordionUsuario"
-                          data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                              <button  type="button" class="btn-btn botones" data-bs-toggle="modal" data-bs-target="#ventanaUsuario">
-                                AGREGAR USUARIO</button>
-                              <div class="table-responsive p-4 rounded">
-                                <table class="table table-striped">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">USUARIO</th>
-                                      <th scope="col">CONTRASEÑA</th>  
-                                      <th scope="col">ROL</th> 
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr  *ngFor="let usuario of usuarios" >
-                                      <th> {{usuario.username}}</th>
-                                      <td>{{usuario.password}}  </td>
-                                      <td>{{usuario.rol.nombreRol}}  </td>
-                                    </tr>   
-                                  </tbody>
-                                </table>
-                              </div>
-                          </div>
-                        </div>
-                        </div>
+                       
                         <!-- ACORDION PARA AGREGAR O ELIMINAR ROL -->
                         <div class="accordion-item">
                           <h2 class="accordion-header" id="flush-headingOne">
@@ -282,6 +249,40 @@
                                       </td>
                                     </tr>
                                     
+                                  </tbody>
+                                </table>
+                              </div>
+                          </div>
+                        </div>
+                        </div>
+                         <!--ACORDION PARA AGREGAR Y MODIFICAR USUARIO  -->
+                         <div class="accordion-item">
+                          <h2 class="accordion-header" id="accordionUsuario">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#colapseUsuario" aria-expanded="false" aria-controls="colapseUsuario">
+                              USUARIO
+                            </button>
+                          </h2>
+                          <div id="colapseUsuario" class="accordion-collapse collapse" aria-labelledby="accordionUsuario"
+                          data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                              <button  type="button" class="btn-btn botones" data-bs-toggle="modal" data-bs-target="#ventanaUsuario">
+                                AGREGAR USUARIO</button>
+                              <div class="table-responsive p-4 rounded">
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">USUARIO</th>
+                                      <th scope="col">CONTRASEÑA</th>  
+                                      <th scope="col">ROL</th> 
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr  *ngFor="let usuario of usuarios" >
+                                      <th> {{usuario.username}}</th>
+                                      <td>{{usuario.password}}  </td>
+                                      <td>{{usuario.rol.nombreRol}}  </td>
+                                    </tr>   
                                   </tbody>
                                 </table>
                               </div>

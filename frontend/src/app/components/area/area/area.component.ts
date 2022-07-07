@@ -31,18 +31,15 @@ export class AreaComponent implements OnInit {
     this.areaService.getAreas().subscribe(
       result=>{
         result.forEach((item:any) => {
-      
           var encargados = new Array<Persona>();
           var area = new Area();
           item.responsables.forEach((iresp:any) => {
-            
             var persona = new Persona();
             Object.assign(persona,iresp);
             encargados.push(persona);  
           });
           area.responsables= encargados;
           Object.assign(area,item);
-          
           this.areas.push(area);
         });
       },
@@ -124,28 +121,28 @@ export class AreaComponent implements OnInit {
 
   buscarArea(nombreArea:string){
     this.areas= new Array<Area>();
-    // this.areaService.buscarAreaPorNombre(nombreArea).subscribe(
-    //   result=>{
-    //     result.forEach((item:any) => {
+    this.areaService.buscarAreaPorNombre(nombreArea).subscribe(
+      result=>{
+        result.forEach((item:any) => {
       
-    //       var encargados = new Array<Persona>();
-    //       var area = new Area();
-    //       item.responsables.forEach((iresp:any) => {
+          var encargados = new Array<Persona>();
+          var area = new Area();
+          item.responsables.forEach((iresp:any) => {
             
-    //         var persona = new Persona();
-    //         Object.assign(persona,iresp);
-    //         encargados.push(persona);  
-    //       });
-    //       area.responsables= encargados;
-    //       Object.assign(area,item);
+            var persona = new Persona();
+            Object.assign(persona,iresp);
+            encargados.push(persona);  
+          });
+          area.responsables= encargados;
+          Object.assign(area,item);
           
-    //       this.areas.push(area);
-    //     });
-    //   },
-    //   error=>{
-    //     console.log(error.msg);
-    //   }
-    // )
+          this.areas.push(area);
+        });
+      },
+      error=>{
+        console.log(error.msg);
+      }
+    )
   }
 
   ngOnInit(): void {

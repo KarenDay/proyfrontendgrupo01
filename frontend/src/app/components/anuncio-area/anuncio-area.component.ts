@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Anuncio } from 'src/app/models/anuncio';
-import { Area } from 'src/app/models/area';
 import { Medio } from 'src/app/models/medio';
 import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
@@ -22,53 +22,48 @@ export class AnuncioAreaComponent implements OnInit {
   searchRedactor:any;
   //--
   anuncios: Array<Anuncio> = new Array<Anuncio>();
+  anuncioACancelar: Anuncio= new Anuncio();
   persona: Persona = new Persona();
   mensaje: string = '';
   mostrarParaEstado: string = 'AUTORIZADO';
   constructor(
-    private anuncioService: AnuncioService,
-    public loginService: LoginService
-  ) {
+              private anuncioService: AnuncioService,
+              public loginService: LoginService,
+              private toast:ToastrService
+            ){
     this.cargarAnuncios();
   }
 
+  /**
+   * Obtiene los datos de la persona logueada y trae los anuncios del area a la que pertenece la persona
+   */
   cargarAnuncios() {
     this.loginService.personaLoggedIn().subscribe(
       (result) => {
         Object.assign(this.persona, result);
-        console.log(this.persona);
-
         this.anuncios = new Array<Anuncio>();
         this.anuncioService.getAnuncioPorArea(this.persona.area._id).subscribe(
           (result) => {
-            console.log('entro');
             console.log(result);
             result.forEach((item: any) => {
               var anuncio = new Anuncio();
               var medios = new Array<Medio>();
               var destinatarios = new Array<Rol>();
               var redactor = new Persona();
-              var area = new Area();
-              Object.assign(area, item.area);
-              Object.assign(redactor, item.redactor);
               item.mediosDePublicacion.forEach((imedio: any) => {
-                console.log(imedio);
                 var medio = new Medio();
                 Object.assign(medio, imedio);
                 medios.push(medio);
               });
               item.destinatario.forEach((idest: any) => {
-                console.log(idest);
                 var destinatario = new Rol();
                 Object.assign(destinatario, idest);
                 destinatarios.push(destinatario);
               });
-
+              Object.assign(redactor, item.redactor);
               anuncio.redactor = redactor;
-              anuncio.area = area;
               anuncio.destinatario = destinatarios;
               anuncio.mediosDePublicacion = medios;
-
               Object.assign(anuncio, item);
               this.anuncios.push(anuncio);
             });
@@ -84,9 +79,23 @@ export class AnuncioAreaComponent implements OnInit {
     );
   }
 
-  confirmarCancelacion() {}
+  confirmarCancelacion(anuncio:Anuncio) {
+    this.anuncioACancelar=anuncio;
+    this.mensaje="¿Desea cancelar el anuncio?";
+  }
 
-  cancelarAnuncioEnVigencia(anuncio: Anuncio) {}
+  cancelarAnuncioEnVigencia() {
+    this.anuncioACancelar.estado="CANCELADO";
+    this.anuncioService.updateAnuncio(this.anuncioACancelar).subscribe(
+      result=>{
+        if (result.status=="1")
+          this.toast.info("El anuncio ha sido CANCELADO","Gestión de anuncio");
+      },
+      error=>{
+          console.log(error.msg);
+      }
+    )
+  }
 
   //-- METODOS BUSQUEDA AVANZADA
   capturarTexto(texto: string) {

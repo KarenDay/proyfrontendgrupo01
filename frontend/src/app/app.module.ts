@@ -30,7 +30,6 @@ import { CorreoComponent } from './components/correo/correo.component';
 import { FacebookComponent } from './components/facebook/facebook.component';
 import { FacebookModule } from 'ngx-facebook';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
 // importamos la librería HTTP_INTERCEPTOR
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';

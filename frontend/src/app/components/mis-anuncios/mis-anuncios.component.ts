@@ -21,110 +21,57 @@ export class MisAnunciosComponent implements OnInit {
   constructor(private anuncioService:AnuncioService,
               private loginService:LoginService,
               private router:Router) { 
-               this.cargarRedactor();
-              
+               this.cargarRedactor();  
   }
 
+  /**
+   * Carga los datos de la persona logueada y busca los anuncios por el id de la persona.
+   */
   cargarRedactor(){
-    
     this.loginService.personaLoggedIn().subscribe(
-      result=>{
-        Object.assign(this.redactor,result);
-        console.log(this.redactor);
-        
-        this.anuncios= new Array<Anuncio>();
-        this.anuncioService.getAnuncioPorRedactor(this.redactor._id).subscribe(
         result=>{
-                console.log("entro");
+          Object.assign(this.redactor,result);
+          this.anuncios= new Array<Anuncio>();
+          this.anuncioService.getAnuncioPorRedactor(this.redactor._id).subscribe(
+            result=>{
                 console.log(result);
-                result.forEach((item:any) => {
-                var anuncio = new Anuncio();
-                var medios = new Array<Medio>();
-                var destinatario = new Rol();
-                var redactor = new Persona();
-                var area =  new Area();
-                Object.assign(area,item.area);
-                Object.assign(redactor,item.redactor);
-                Object.assign(destinatario,item.destinatario);
-                item.mediosDePublicacion.forEach((imedio:any) => {
-                    console.log(imedio);
-                    var medio = new Medio();
-                    Object.assign(medio,imedio);
-                    medios.push(medio);  
-                 });
-          
-          anuncio.redactor= redactor;
-          anuncio.area=area;
-          //anuncio.destinatario= destinatario;
-          anuncio.mediosDePublicacion=medios;
-          
-          Object.assign(anuncio,item);
-          this.anuncios.push(anuncio);
-      
-        });
-      },
-      error=>{
-        console.log(error.msg);
-      }
-    )
-      },
-      error=>{
-        console.log(error.msg);
-      }
-    )
-  }
-
-  cargarAnuncios(){
-    
-    this.anuncios= new Array<Anuncio>();
-    this.anuncioService.getAnuncioPorRedactor(this.redactor._id).subscribe(
-      result=>{
-        console.log("entro");
-        console.log(result);
-        result.forEach((item:any) => {
-          var anuncio = new Anuncio();
-          var medios = new Array<Medio>();
-          var destinatarios = new Array<Rol>();
-          var redactor = new Persona();
-          var area =  new Area();
-          Object.assign(area,item.area);
-          Object.assign(redactor,item.redactor);
-         // Object.assign(destinatario,item.destinatario);
-          item.mediosDePublicacion.forEach((imedio:any) => {
-            console.log(imedio);
-            var medio = new Medio();
-            Object.assign(medio,imedio);
-            medios.push(medio);  
-          });
-          item.destinatario.forEach((idest:any) => {
-            console.log(idest);
-            var destinatario = new Rol();
-            Object.assign(destinatario,idest);
-            destinatarios.push(destinatario);  
-         });
-         anuncio.redactor= redactor;
-          anuncio.area=area;
-          anuncio.destinatario= destinatarios;
-          anuncio.mediosDePublicacion=medios;
-          
-          Object.assign(anuncio,item);
-          this.anuncios.push(anuncio);
-        });
-      },
-      error=>{
-        console.log(error.msg);
-      }
+                    result.forEach((item:any) => {
+                        var anuncio = new Anuncio();
+                        var medios = new Array<Medio>();
+                        var redactor = new Persona();
+                        Object.assign(redactor,item.redactor);
+                        var destinatarios = new Array<Rol>();
+                        item.destinatario.forEach((idest:any) => {
+                          var destinatario = new Rol();
+                          Object.assign(destinatario,idest);
+                          destinatarios.push(destinatario);
+                        });
+                        item.mediosDePublicacion.forEach((imedio:any) => {
+                            var medio = new Medio();
+                            Object.assign(medio,imedio);
+                            medios.push(medio);  
+                        });
+                          anuncio.redactor= redactor;
+                          anuncio.mediosDePublicacion=medios;
+                          Object.assign(anuncio,item);
+                          this.anuncios.push(anuncio);
+                    });
+            },
+            error=>{
+              console.log(error.msg);
+            }
+          )
+        },
+        error=>{
+          console.log(error.msg);
+        }
     )
   }
 
   modificarAnuncio(anuncio:Anuncio){
-    console.log("ID anuncio: "+anuncio._id);
-    this.router.navigate(["anuncio-form", anuncio._id]);
-    
+    this.router.navigate(["anuncio-form", anuncio._id]); 
   }
 
   ngOnInit(): void {
   }
-
-
 }
