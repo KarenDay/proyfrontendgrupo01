@@ -1,19 +1,258 @@
-<div class="container-fluid ">
-    <div class="row">
-        <div class="card col-10 offset-1 tabla mt-5 mb-5">   
-                <div class="table-wrapper mt-5 ">
-                    <div class=" table-title ">
-                        <div class=" card p-2 titulo">
-                            <div class="row">
-                                <div class="col-12  text-center text-md-start">
-                                    <h2 class="ps-4 text-center"><b> ESTADISTICAS</b></h2>
-                                </div>
-                            </div>      
-                        </div>
+<div class="container-fluid cuerpo"> 
+    <div  class="col text-center p-2" >
+        <button type="button" class="btn btn-danger m-2" (click)="obtenerAnunciosPorArea()">Anuncios Por Area</button>
+        <button type="button" class="btn btn-danger m-2" (click)="obtenerAnunciosPorRoles()">Anuncios Para Roles</button>
+        <button type="button" class="btn btn-danger m-2" (click)="obtenerAnunciosPorMedios()">Anuncios Para Medios</button>
+        <button type="button" class="btn btn-danger m-2" (click)="obtenerAnunciosPorMes()">Anuncios Por Mes</button>
+        <button type="button" class="btn btn-danger m-2" (click)="obtenerAnunciosPorAnio()">Anuncios Por Año</button>
+        <button type="button" class="btn btn-danger m-2" (click)="habilitarFormPeriodo()">Periodo Por Area</button>
+    </div>
+    <div class="col text-center p-2" >
+        <div class="row-cols-1">
+            <div class="col-8 offset-2">
+                <form class="col-4 offset-4" [hidden]="habilitar!=true">
+                    <div class="col-auto">
+                      <label for="inicio" class="visually-hidden">Fecha Inicial</label>
+                      <input type="date"  class="form-control" id="inicio" placeholder="Fecha Inicial" name="inicio"
+                    [(ngModel)]="rangoInicial">
                     </div>
-                </div>
+                    <div class="col-auto">
+                      <label for="final" class="visually-hidden">Fecha Final</label>
+                      <input type="date" class="form-control" id="final" placeholder="Fecha Final" name="final"
+                      [(ngModel)]="rangoFinal">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-danger m-2" (click)="obtenerAnunciosPorPeriodo()">Buscar</button>
+                    </div>
+                  </form>
+            </div>    
         </div>
-    </div>   
-</div>
+    </div>
+   
 
+    <div *ngIf="anunciosPorArea==true">
+        <div class="card">
+            <!-- <ngx-charts-advanced-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultArea"
+                [gradient]="gradient"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+            </ngx-charts-advanced-pie-chart> -->
+            <ngx-charts-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultArea"
+                [gradient]="gradiente"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut1"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+                </ngx-charts-pie-chart>
+        </div>
+        <div class="card">
+            <ngx-charts-bar-vertical class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultArea"
+                [gradient]="gradientBar"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegendBar"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelectBar($event)">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <div *ngIf="anunciosPorRol==true">
+        <div class="card">
+            <!-- <ngx-charts-advanced-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultRol"
+                [gradient]="gradient"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+            </ngx-charts-advanced-pie-chart> -->
+            <ngx-charts-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultRol"
+                [gradient]="gradiente"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut1"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+                </ngx-charts-pie-chart>
+        </div>
+        <div class="card">
+            <ngx-charts-bar-vertical class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultRol"
+                [gradient]="gradientBar"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegendBar"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelectBar($event)">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <div *ngIf="anunciosPorMedio==true">
+        <div class="card">
+            <ngx-charts-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultMedio"
+                [gradient]="gradiente"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut1"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+                </ngx-charts-pie-chart>
+        </div>
+        <div class="card">
+            <ngx-charts-bar-vertical class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultMedio"
+                [gradient]="gradientBar"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegendBar"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelectBar($event)">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div> 
+    <div *ngIf="anunciosPorMes==true">
+        <div class="card">
+            <ngx-charts-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultMes"
+                [gradient]="gradiente"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut1"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+                </ngx-charts-pie-chart>
+        </div>
+        <div class="card">
+            <ngx-charts-bar-vertical class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultMes"
+                [gradient]="gradientBar"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegendBar"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelectBar($event)">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <div *ngIf="anunciosPorAnio==true">
+        <div class="card">
+            <ngx-charts-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultAnio"
+                [gradient]="gradiente"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut1"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+                </ngx-charts-pie-chart>
+        </div>
+        <div class="card">
+            <ngx-charts-bar-vertical class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultAnio"
+                [gradient]="gradientBar"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegendBar"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelectBar($event)">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>
+    <div *ngIf="anunciosPorPeriodo==true">
+        <div class="card">
+            <ngx-charts-pie-chart class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultPeriodo"
+                [gradient]="gradiente"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut1"
+                (select)="onSelectPie($event)"
+                (activate)="onActivatePie($event)"
+                (deactivate)="onDeactivatePie($event)"
+                >
+                </ngx-charts-pie-chart>
+        </div>
+        <div class="card">
+            <ngx-charts-bar-vertical class="table-responsive"
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resultPeriodo"
+                [gradient]="gradientBar"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegendBar"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                (select)="onSelectBar($event)">
+            </ngx-charts-bar-vertical>
+        </div>
+    </div>      
+</div>
 
