@@ -33,7 +33,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // importamos la librería HTTP_INTERCEPTOR
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     QRCodeModule,
     AlifeFileToBase64Module,
     FacebookModule.forRoot(),
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxChartsModule
     
   ],
   providers: [

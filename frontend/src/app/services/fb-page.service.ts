@@ -28,7 +28,7 @@ export class FbPageService {
     this.fb.api('/101539232629766/feed', apiMethod, {
       message: mensaje,
       access_token:
-        'EAAX2H7lyBQEBAGXp1C7Csenm9xZA8EVzcwibLEwHR3xKSgyNKYzVkdF7B3CwLLrB8RuD2jkHcH5YWCrIbAZAZC2TnjGd2YTiOW1GoilEFhA0f4ZB9qghMKJhglnwiMDZAB7PJbAJAb7e8Fqv0Tdx77Svi42fwm6peQhJWhIlp63HZBA1s48RU3G2A4AgewYPRqpOrz5ii4DPVbQu8ZAMJ5j',
+        'EAAX2H7lyBQEBABiT2xmbTk9s6Bzf0VzAIpcT79dad88KsZBBxtE7XX4IdbZB5VwJaWEHwZC58nDWQZA2MtZAouWbJRdRRUpOhVIE7lFLTM3vEZAqXMcFykYtZAMYrSQJFnHS3hkwwQHCCm4AJclOapNbd1yylwFgAzJFtPKzFcCuI8dvKOE92v5eqjZCxpVCGm1pFRTSR7a3qUhuJdjNZAkQc',
     });
   }
 
@@ -43,7 +43,7 @@ export class FbPageService {
       url:urlFb,
       message:mensajeFb,
       access_token:
-        'EAAX2H7lyBQEBAGXp1C7Csenm9xZA8EVzcwibLEwHR3xKSgyNKYzVkdF7B3CwLLrB8RuD2jkHcH5YWCrIbAZAZC2TnjGd2YTiOW1GoilEFhA0f4ZB9qghMKJhglnwiMDZAB7PJbAJAb7e8Fqv0Tdx77Svi42fwm6peQhJWhIlp63HZBA1s48RU3G2A4AgewYPRqpOrz5ii4DPVbQu8ZAMJ5j',
+        'EAAX2H7lyBQEBABiT2xmbTk9s6Bzf0VzAIpcT79dad88KsZBBxtE7XX4IdbZB5VwJaWEHwZC58nDWQZA2MtZAouWbJRdRRUpOhVIE7lFLTM3vEZAqXMcFykYtZAMYrSQJFnHS3hkwwQHCCm4AJclOapNbd1yylwFgAzJFtPKzFcCuI8dvKOE92v5eqjZCxpVCGm1pFRTSR7a3qUhuJdjNZAkQc',
     });
   }
 
